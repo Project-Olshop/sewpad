@@ -15,7 +15,7 @@ class Home extends CI_Controller {
     	->getDataUser();
 		$data = [
 			'title' => 'Home',
-			'user' => $user
+			'users' => $user
 			];
 		$this->load->view('home', $data);
 	}

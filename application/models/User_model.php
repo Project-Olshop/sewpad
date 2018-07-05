@@ -6,71 +6,80 @@ class User_model extends CI_Model {
 
 	public function insertUser()
 	{
-		$object = array('namaUser' => $this->input->post('nama'),
+		$object = array('username' => $this->input->post('nama'),
 						'email' => $this->input->post('email'), 
-						'password' => $this->input->post('password'), 
-						'foto' => $this->upload->data('file_name'));
-		$this->db->insert('user',$object);
+						'password' => $this->input->post('password'));
+						// 'foto' => $this->upload->data('file_name'));
+		$this->db->insert('users',$object);
 	}
 
+	function login($username,$password){
+    	$this->db->select('*');
+    	$this->db->from('users');
+    	$this->db->where('username',$username);
+    	$this->db->where('password',$password);
+    	$query=$this->db->get();
+    	return $query->num_rows()>0;
+	}
+	
 	public function getDataUser()
 	{
-		$query = $this->db->get('user');
+		$query = $this->db->get('users');
 		return $query->result();
 		
 	}
 
 	public function getUser($id)
 	{
-		$this->db->where('idUser',$id);
-		$query = $this->db->get('user');
+		$this->db->where('id',$id);
+		$query = $this->db->get('users');
 		return $query->result();
 	}
 
 	public function updateById($id)
 	{
-		$object = array('namaUser' => $this->input->post('namaUser'),
+		$object = array('username' => $this->input->post('username'),
 						'email' => $this->input->post('email'),
-						'password' => $this->input->post('password'),
-						'foto' => $this->upload->data('file_name'));
-		$this->db->where('idUser',$id);
-		$this->db->update('user', $object);
+						'password' => $this->input->post('password'));
+						// 'foto' => $this->upload->data('file_name'));
+		$this->db->where('id',$id);
+		$this->db->update('users', $object);
 	}
-
+	
 	public function deleteById($id)
 	{
-		$this->db->where('idUser',$id);
-		$query = $this->db->delete('user');
+		$this->db->where('id',$id);
+		$query = $this->db->delete('users');
 	}
 
 	public function list($limit, $start, $search)
     {
 		// $this->db->limit($limit, $start);
 		$this->db->select('*');
-		$this->db->join('tutorial','tutorial.idTutorial=user.idUser');
+		$this->db->join('tutorial','tutorial.idTutorial=users.id');
 		if($search !='null')
 		{
-			$this->db->like('namaUser',$search);
+			$this->db->like('username',$search);
 			$this->db->or_like('no',$search);
 			$this->db->or_like('namaTutorial',$search);
 		}
-        $query = $this->db->get('user', $limit, $start);
+        $query = $this->db->get('users', $limit, $start);
         return ($query->num_rows() > 0) ? $query->result() : false;
     }
 
 	public function getTotal($search='')
     {
 		$this->db->select('*');
-		$this->db->from('user');
-		$this->db->join('tutorial','tutorial.id=user.id');
+		$this->db->from('users');
+		$this->db->join('tutorial','tutorial.id=users.id');
 		if($search !='null')
 		{
-			$this->db->like('namaUser',$search);
+			$this->db->like('username',$search);
 			$this->db->or_like('no',$search);
 			$this->db->or_like('namaTutorial',$search);
 		}
-        $query = $this->db->get('user', $search);
-		return $this->db->count_all('user');
+        $query = $this->db->get('users', $search);
+		return $this->db->count_all('users');
     }
 
     // public function cari($keyword)
