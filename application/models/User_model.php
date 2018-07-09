@@ -18,8 +18,7 @@ class User_model extends CI_Model {
     	$this->db->from('users');
     	$this->db->where('username',$username);
     	$this->db->where('password',$password);
-    	$query=$this->db->get();
-    	return $query->num_rows()>0;
+    	return $this->db->get()->row();
 	}
 	
 	public function getDataUser()

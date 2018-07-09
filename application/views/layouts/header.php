@@ -17,7 +17,7 @@
                 <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="<?php echo site_url('/auth');?>">Login</a>
+                <a class="nav-link js-scroll-trigger" href="<?php echo site_url('/login');?>">Login</a>
               </li>              
             </ul>
           </div>

@@ -1,79 +1,55 @@
 // Global styling for this template
-body,
+
 html {
-  width: 100%;
-  height: 100%;
+  position: relative;
+  min-height: 100%;
 }
 
 body {
-  @include serif-font;
+  overflow-x: hidden;
 }
 
-hr {
-  max-width: 50px;
-  border-width: 3px;
-  border-color: $primary;
-}
-
-hr.light {
-  border-color: $white;
-}
-
-a {
-  color: $primary;
-  @include transition-all;
-  &:hover {
-    color: darken($primary, .1);
+body.sticky-footer {
+  margin-bottom: $sticky-footer-height;
+  .content-wrapper {
+    min-height: calc(100vh - #{$sticky-footer-height} - #{$navbar-base-height});
   }
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @include sans-serif-font;
+body.fixed-nav {
+  padding-top: $navbar-base-height;
 }
 
-.bg-primary {
-  background-color: $primary !important;
+.content-wrapper {
+  min-height: calc(100vh - #{$sticky-footer-height});
+  padding-top: 1rem;
 }
 
-.bg-dark {
-  background-color: $gray-900 !important;
-}
+// Scroll to top button
+.scroll-to-top {
+  position: fixed;
+  right: 15px;
+  bottom: 3px;
 
-.text-faded {
-  color: fade-out($white, .3);
-}
+  display: none;
 
-section {
-  padding: 8rem 0;
-}
+  width: 50px;
+  height: 50px;
 
-.section-heading {
-  margin-top: 0;
-}
+  text-align: center;
 
-::-moz-selection {
-  color: $white;
-  background: $gray-900;
-  text-shadow: none;
-}
+  color: white;
+  background: fade-out($gray-800, .5);
 
-::selection {
-  color: $white;
-  background: $gray-900;
-  text-shadow: none;
-}
-
-img::selection {
-  color: $white;
-  background: transparent;
-}
-
-img::-moz-selection {
-  color: $white;
-  background: transparent;
+  line-height: 45px;
+  &:focus,
+  &:hover {
+    color: white;
+  }
+  &:hover {
+    background: $gray-800;
+  }
+  i {
+    font-weight: 800;
+  }
 }

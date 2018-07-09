@@ -1,0 +1,1 @@
+select p.seatZone from eventseat as p inner join eventschedule as s on p.venue_id = s.venue_id where s.idSchedule = 1;

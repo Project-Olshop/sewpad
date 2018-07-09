@@ -17,40 +17,28 @@
             redirect('login','refresh');
         }
 
-        public function cekDb($password)
+        public function cekDb()
         {
             # code...
-            $this->load->model('user');
+            $this->load->model('User_model');
             $username = $this->input->post('username'); 
-            $result = $this->user->login($username,$password);
-            if($result){
-                $session_array = array();
-                foreach ($result as $key) {
-                    $session_array = array(
-                        'id'=>$key->id,
-                        'username'=>$key->username
-                    );
-                    $this->session->set_userdata('logged_in',$session_array);
-                }
-                return true;
-            }else{
-                $this->form_validation->set_message('cekDb',"login gagal");
-                return false;
+            $password = $this->input->post('password'); 
+            $result = $this->User_model->login($username,$password);
+            if($result)
+            {
+                $data = [
+                    'tipe' => $result->company,
+                    'username' => $result->username
+                ];
+                $this->session->set_userdata($data);
+                redirect('admin/');
+            }
+            else
+            {
+                redirect('login/');
             }
         }
 
-        public function cekLogin()
-        {
-            $this->load->library('form_validation');
-            $this->form_validation->set_rules('username', 'Username', 'trim|required');
-            $this->form_validation->set_rules('password', 'Password', 'trim|required|callback_cekDb');
-            if ($this->form_validation->run() == FALSE) {
-                # code...
-                $this->load->view('loginView');
-            } else {
-                redirect('welcome','refresh');
-            }
-        }
         public function register()
         {
             $this->load->library('form_validation');

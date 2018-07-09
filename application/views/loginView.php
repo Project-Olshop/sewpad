@@ -64,17 +64,17 @@
                                 </div>
                             </div>
                             <div class="form-bottom">
-                                <?php echo form_open('login/cekLogin'); ?>
+                                <?php echo form_open('login/cekdb'); ?>
                                 <!--<legend>Tambah Data Pegawai</legend>-->
                                 <?php echo validation_errors()?>
                                 <form role="form" action="" method="post" class="login-form">
                                     <div class="form-group">
                                         <label class="sr-only" for="form-username">Username</label>
-                                        <input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
+                                        <input type="text" name="username" placeholder="Username..." class="form-username form-control" id="username">
                                     </div>
                                     <div class="form-group">
                                         <label class="sr-only" for="form-password">Password</label>
-                                        <input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+                                        <input type="password" name="password" placeholder="Password..." class="form-password form-control" id="password">
                                     </div>
                                     <div>
                                     <label>Belum punya akun <a href="<?php echo site_url("login/register"); ?>"> Registrasi</a>
