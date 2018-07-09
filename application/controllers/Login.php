@@ -31,7 +31,12 @@
                     'username' => $result->username
                 ];
                 $this->session->set_userdata($data);
-                redirect('admin/');
+
+                if($this->session->tipe=='admin'){
+                    redirect('admin/');
+                }
+                else{redirect('member/');}
+                
             }
             else
             {
