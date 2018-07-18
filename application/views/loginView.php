@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<?php $this->load->view('layouts/base_start') ?>
     <head>
 
         <meta charset="utf-8">
@@ -9,33 +7,21 @@
         <title>Sewpad | Login</title>
 
         <!-- CSS -->
-        <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>'assets/css/bootstrap.css')">
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>'assets/login/css/bootstrap.css')">
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-        <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css');?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/font-awesome/css/font-awesome.min.css');?>">
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/form-elements.css');?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css');?>">
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
+        <link rel="stylesheet" href="<?php echo base_url('assets/login/bootstrap/css/bootstrap.min.css');?>">
+        <link rel="stylesheet" href="<?php echo base_url('assets/login/font-awesome/css/font-awesome.min.css');?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/login/css/form-elements.css');?>">
+        <link rel="stylesheet" href="<?php echo base_url('assets/login/css/style.css');?>">
         <!-- Favicon and touch icons -->
-        <link rel="shortcut icon" href="<?php echo base_url('assets/ico/favicon.png');?>">
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url('assets/ico/apple-touch-icon-144-precomposed.png');?>">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url('assets/ico/apple-touch-icon-114-precomposed.png');?>">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url('assets/ico/apple-touch-icon-72-precomposed.png');?>">
-        <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('assets/ico/apple-touch-icon-57-precomposed.png');?>">
+        <link rel="shortcut icon" href="<?php echo base_url('assets/login/ico/favicon.png');?>">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url('assets/login/ico/apple-touch-icon-144-precomposed.png');?>">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url('assets/login/ico/apple-touch-icon-114-precomposed.png');?>">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url('assets/login/ico/apple-touch-icon-72-precomposed.png');?>">
+        <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('assets/login/ico/apple-touch-icon-57-precomposed.png');?>">
 
     </head>
-
     <body>
-
-<body>
-
         <!-- Top content -->
         <div class="top-content">
             
@@ -44,12 +30,6 @@
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-2 text">
                             <h1><strong>Sewpad</strong> Login</h1>
-                            <!-- <div class="description">
-                                <p>
-                                    This is a free responsive login form made with Bootstrap. 
-                                    Download it on <a href="http://azmind.com"><strong>AZMIND</strong></a>, customize and use it as you like!
-                                </p>
-                            </div> -->
                         </div>
                     </div>
                     <div class="row">
@@ -65,7 +45,6 @@
                             </div>
                             <div class="form-bottom">
                                 <?php echo form_open('login/cekdb'); ?>
-                                <!--<legend>Tambah Data Pegawai</legend>-->
                                 <?php echo validation_errors()?>
                                 <form role="form" action="" method="post" class="login-form">
                                     <div class="form-group">
@@ -87,22 +66,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="row"> -->
-                        <!-- <div class="col-sm-6 col-sm-offset-3 social-login"> -->
-                            <!-- <h3>...or login with:</h3> -->
-                            <!-- <div class="social-login-buttons">
-                                <a class="btn btn-link-2" href="#">
-                                    <i class="fa fa-facebook"></i> Facebook
-                                </a>
-                                <a class="btn btn-link-2" href="#">
-                                    <i class="fa fa-twitter"></i> Twitter
-                                </a>
-                                <a class="btn btn-link-2" href="#">
-                                    <i class="fa fa-google-plus"></i> Google Plus
-                                </a>
-                            </div> -->
-                        <!-- </div> -->
-                    <!-- </div> -->
                 </div>
             </div>
             
@@ -111,15 +74,14 @@
 
 
         <!-- Javascript -->
-        <script src="<?php echo base_url('assets/js/jquery-1.11.1.min.js');?>"></script>
-        <script src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js');?>"></script>
-        <script src="<?php echo base_url('assets/js/jquery.backstretch.min.js');?>"></script>
-        <script src="<?php echo base_url('assets/js/scripts.js');?>"></script>
+        <script src="<?php echo base_url('assets/login/js/jquery-1.11.1.min.js');?>"></script>
+        <script src="<?php echo base_url('assets/login/js/bootstrap/bootstrap.min.js');?>"></script>
+        <script src="<?php echo base_url('assets/login/js/jquery.backstretch.min.js');?>"></script>
+        <script src="<?php echo base_url('assets/login/js/scripts.js');?>"></script>
         
         <!--[if lt IE 10]>
             <script src="assets/js/placeholder.js"></script>
         <![endif]-->
 
     </body>
-
-</html>
+<?php $this->load->view('layouts/base_end') ?>

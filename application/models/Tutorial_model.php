@@ -19,7 +19,12 @@ class Tutorial_model extends CI_Model {
 		$query = $this->db->get('tutorial');
 		return $query->result();	
 	}
-
+	public function getKatTutorial(){
+        $query = $this->db->get('kategori_tutorial');
+        if($query->num_rows()>0){	
+            return $query->result();
+        }
+    }
 	public function getTutorial($id)
 	{
 		$this->db->where('id',$id);
@@ -72,7 +77,13 @@ class Tutorial_model extends CI_Model {
         $query = $this->db->query("SELECT * FROM tutorial WHERE nama_tutorial LIKE '%$keyword%'");
         $this->db->like('nama_tutorial', $keyword);
         return $query->result();
-    }    
+	}
+	
+	public function show($id){
+		$this->db->where('idTutorial',$id);
+		$query=$this->db->get('tutorial');
+		return $query->row();
+	}
 
 }
 

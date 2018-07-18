@@ -16,7 +16,7 @@ class Admin extends CI_Controller {
 
         if($session_id != 'admin'){
             redirect('login/');
-        }
+        } 
         $data['admin']=$session_id;
 		$this->load->view('admin/index', $data);
     }
