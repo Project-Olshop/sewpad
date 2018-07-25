@@ -1,5 +1,3 @@
-<?php $this->load->view('tutorial/layouts/base_start') ?>
-
     <!-- <section class="bg-primary" id="tutorial"> -->
      <link rel="stylesheet" href="<?php echo base_url('assets/css/animate.css');?>">
     <!-- Icomoon Icon Fonts-->
@@ -54,4 +52,3 @@
       <?php } ?>
     </div>
     </section>
-<?php $this->load->view('tutorial/layouts/base_end') ?>

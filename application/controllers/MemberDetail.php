@@ -6,21 +6,21 @@ class MemberDetail extends CI_Controller {
 	public function index()
 	{
 		$session_data=$this->session->userdata('logged_in');
-        $data['username']=$session_data['username'];
-        $data['level']=$session_data['level'];
+        $data1['username']=$session_data['username'];
+        $data['company']=$session_data['company'];
         $data['id']=$session_data['id'];
 
-        $this->load->model('user');
+        $this->load->model('User_model');
         $id = $data['id'];
-        $data['name'] = $this->user->selectAll($id);
+        $data['username'] = $this->User_model->selectAll($id);
 
-        $this->load->model('EventScheduleModel');
-        $data["artist_list"] = $this->User_model->getArtistOption();
-        $data["cat_list"] = $this->Eodel->getCatOption();
+        // $this->load->model('EventScheduleModel');
+        // $data["artist_list"] = $this->User_model->getArtistOption();
+        // $data["cat_list"] = $this->Eodel->getCatOption();
 
-        $this->load->view('user/headerAllEvent', $data);
-        $this->load->view('user/profile', $data);
-        $this->load->view('user/footer'); 
+        $this->load->view('layouts/base_start_member', $data1);
+        $this->load->view('member/profile', $data);
+        $this->load->view('layouts/base_end'); 
 	}
 
 	public function updatePhoto(){
@@ -30,7 +30,7 @@ class MemberDetail extends CI_Controller {
 
         $session_data=$this->session->userdata('logged_in');
         $data['username']=$session_data['username'];
-        $data['level']=$session_data['level'];
+        $data['company']=$session_data['company'];
         $data['id']=$session_data['id'];
         $id = $data['id'];
         
@@ -41,13 +41,13 @@ class MemberDetail extends CI_Controller {
             $config['max_height']=7680;
 
             $this->load->library('upload', $config);
-            if (! $this->upload->do_upload('pic')) {
-                redirect('UserDetail','refresh');
+            if (! $this->upload->do_upload('photo')) {
+                redirect('MemberDetail','refresh');
                 
             }else{
-                $this->User->updatePic($id);
+                $this->User_model->updatePic($id);
                 echo "<script>alert('Successfully Updated'); </script>";
-                redirect('UserDetail','refresh');
+                redirect('MemberDetail','refresh');
         	}
     	}
 
@@ -55,38 +55,35 @@ class MemberDetail extends CI_Controller {
 	    {
         $session_data=$this->session->userdata('logged_in');
         $data['username']=$session_data['username'];
-        $data['level']=$session_data['level'];
+        $data['company']=$session_data['company'];
         $data['id']=$session_data['id'];
 
         $id = $data['id'];
 
-		$this->load->model('User');
+		$this->load->model('User_model');
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('name', 'Full Name', 'trim|required');
-        $this->form_validation->set_rules('add', 'Address', 'trim|required');
-        $this->form_validation->set_rules('phone', 'Phone Number', 'trim|required');
-        $this->form_validation->set_rules('email', 'Email', 'trim|required');
-        $this->form_validation->set_rules('username', 'Username', 'trim|required');
+        $this->form_validation->set_rules('username', 'username', 'trim|required');
+        $this->form_validation->set_rules('email', 'email', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
             $session_data=$this->session->userdata('logged_in');
-        $data['username']=$session_data['username'];
-        $data['level']=$session_data['level'];
+        $data1['username']=$session_data['username'];
+        $data['company']=$session_data['company'];
         $data['id']=$session_data['id'];
 
-        $this->load->model('user');
+        $this->load->model('User_model');
         $id = $data['id'];
-        $data['name'] = $this->user->selectAll($id);
+        $data['username'] = $this->User_model->selectAll($id);
 
-        $this->load->view('user/headerAllEvent', $data);
-        $this->load->view('user/profile', $data);
-        $this->load->view('user/footer');     
+        $this->load->view('layouts/base_start_member', $data1);
+        $this->load->view('member/profile', $data);
+        $this->load->view('layouts/base_end'); 
         } else {
-        	    $this->User->updateNoPass($id);
+        	    $this->User_model->updateNoPass($id);
                 $session_data['username'] = $this->input->post('username');
                 $data['username']=$session_data['username'];
                   echo "<script>alert('Successfully Updated'); </script>";
-                  redirect('UserDetail','refresh');
+                  redirect('MemberDetail','refresh');
 	   }
     }
 
@@ -94,12 +91,12 @@ class MemberDetail extends CI_Controller {
         {
         $session_data=$this->session->userdata('logged_in');
         $data['username']=$session_data['username'];
-        $data['level']=$session_data['level'];
+        $data['company']=$session_data['company'];
         $data['id']=$session_data['id'];
 
         $id = $data['id'];
 
-        $this->load->model('User');
+        $this->load->model('User_model');
         $this->load->library('form_validation');
 
 
@@ -109,24 +106,24 @@ class MemberDetail extends CI_Controller {
 
 
         if ($this->form_validation->run() == FALSE) {
-        $data['name'] = $this->User->selectAll($id);
+        $data['username'] = $this->User_model->selectAll($id);
 
-        $this->load->view('user/headerAllEvent', $data);
-        $this->load->view('user/profile', $data);
-        $this->load->view('user/footer');     
+        $this->load->view('layouts/base_start_member', $data);
+        $this->load->view('member/profile', $data);
+        $this->load->view('layouts/base_end'); 
         } else {
             $old = $this->input->post('old');
             $new = $this->input->post('password');
             $confirm = $this->input->post('confirm');
             
             if ($new == $confirm){
-            $this->User->updatePass($id);
+            $this->User_model->updatePass($id);
             $session_data['username'] = $this->input->post('username');
             $session_data['password'] = MD5($this->input->post('password'));
             $data['username']=$session_data['username'];
             $data['password']=$session_data['password'];
             echo "<script>alert('Successfully Updated'); </script>";
-            redirect('UserDetail','refresh');
+            redirect('MemberDetail','refresh');
             }
        }
     }
@@ -134,9 +131,9 @@ class MemberDetail extends CI_Controller {
             public function cekDb($password)
         {
             $session_data=$this->session->userdata('logged_in');
-            $this->load->model('User');
+            $this->load->model('User_model');
             $username = $session_data['username'];
-            $result = $this->User->login($username,$password);
+            $result = $this->User_model->login($username,$password);
             if($result){
                 return true;
             }else{

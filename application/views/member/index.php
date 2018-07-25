@@ -1,5 +1,4 @@
-<?php $this->load->view('layouts/base_start') ?>
-    <header class="masthead text-center text-white d-flex">
+<header class="masthead text-center text-white d-flex">
       <div class="container my-auto">
         <div class="row">
           <div class="col-lg-10 mx-auto">
@@ -29,7 +28,7 @@
 
     <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css');?>">
 
-    <script src="js/modernizr-2.6.2.min.js"></script>
+        <script src="js/modernizr-2.6.2.min.js"></script>
     <section id="tutorial">
     <div id="fh5co-blog-section">
       <div class="container">
@@ -40,53 +39,39 @@
           </div>
         </div>
       </div>
+      <?php if (isset($tutorial)) { ?>
+      <?php $number = 1; foreach($tutorial as $row) { ?>
       <div class="container">
         <div class="row row-bottom-padded-md">
           <div class="col-lg-4 col-md-4">
             <div class="fh5co-blog animate-box">
-              <a href="<?php echo base_url('/tutorial/show');?>"><img class="img-responsive" src="img/images/blog-1.jpg" alt=""></a>
+            <a href="<?php echo site_url('tutorial/show/'.$row->id) ?>">
+              <?php echo $number++ ?>
+            </a>
+            <a href="<?php echo site_url('tutorial/show/'.$row->id) ?>">
+              <img src="<?php echo base_url('assets/upload/')?><?php echo $row->foto_tutorial; ?>" width="100">
+            </a>
               <div class="blog-text">
                 <div class="prod-title">
-                  <h3><a href="<?php echo base_url('/tutorial/show');?>">45 Minimal Worksspace Rooms for Web Savvys</a></h3>
+                  <h3><a href="<?php echo base_url('/tutorial/show'.$row->id);?>"><?php echo $row->nama_tutorial; ?>45 Minimal Worksspace Rooms for Web Savvys</a></h3>
                   <span class="posted_by">Sep. 15th</span>
-                  <span class="comment"><a href="<?php echo base_url('/tutorial/show');?>">21<i class="icon-bubble2"></i></a></span>
-                  <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  <a href="<?php echo base_url('/tutorial/show');?>" class="btn btn-primary">Read More</a>
+                  <span class="comment"><a href="<?php echo base_url('/tutorial/show'.$row->id);?>">21<i class="icon-bubble2"></i></a></span>
+                  <a href="<?php echo base_url('/tutorial/show'.$row->id);?>" class="btn btn-primary">Read More</a>
                 </div>
               </div> 
             </div>
           </div>
-          <div class="col-lg-4 col-md-4">
-            <div class="fh5co-blog animate-box">
-              <a href="<?php echo base_url('/tutorial/show');?>"><img class="img-responsive" src="img/images/blog-2.jpg" alt=""></a>
-              <div class="blog-text">
-                <div class="prod-title">
-                  <h3><a href="<?php echo base_url('/tutorial/show');?>">45 Minimal Worksspace Rooms for Web Savvys</a></h3>
-                  <span class="posted_by">Sep. 15th</span>
-                  <span class="comment"><a href="<?php echo base_url('/tutorial/show');?>">21<i class="icon-bubble2"></i></a></span>
-                  <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  <a href="<?php echo base_url('/tutorial/show');?>" class="btn btn-primary">Read More</a>
-                </div>
-              </div> 
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4">
-            <div class="fh5co-blog animate-box">
-              <a href="<?php echo base_url('/tutorial/show');?>"><img class="img-responsive" src="img/images/blog-3.jpg" alt=""></a>
-              <div class="blog-text">
-                <div class="prod-title">
-                  <h3><a href="<?php echo base_url('/tutorial/show');?>">45 Minimal Worksspace Rooms for Web Savvys</a></h3>
-                  <span class="posted_by">Sep. 15th</span>
-                  <span class="comment"><a href="<?php echo base_url('/tutorial/show');?>">21<i class="icon-bubble2"></i></a></span>
-                  <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  <a href="<?php echo base_url('/tutorial/show');?>" class="btn btn-primary">Read More</a>
-                </div>
-              </div> 
-            </div>
+      </div>
+      <?php } ?>
+      <?php echo $links ?>
+      <?php } else { ?>
+        <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading">Tidak ada data</h2>
           </div>
         </div>
-
       </div>
+      <?php } ?>
     </div>
     </section>
-<?php $this->load->view('layouts/base_end') ?>

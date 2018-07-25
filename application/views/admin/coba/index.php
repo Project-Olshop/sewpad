@@ -1,4 +1,3 @@
-<?php $this->load->view('admin/layouts/base_start') ?>
   <div class="content-wrapper">
     <div class="container-fluid">
       <!-- Breadcrumbs-->
@@ -855,5 +854,4 @@
       </div>
     </div>
     <!-- /.container-fluid-->
-    <!-- /.content-wrapper-->  
-    <?php $this->load->view('admin/layouts/base_end') ?>
+    <!-- /.content-wrapper-->

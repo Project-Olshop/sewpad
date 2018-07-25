@@ -14,7 +14,7 @@
               <a href="<?php echo site_url('member/show/'.$firstname.$lastname) ?>"></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="<?php echo site_url('tutorial/create') ?>">Tulis Tutorial</a>
+                <a class="nav-link js-scroll-trigger" href="<?php echo site_url('tutorial/create') ?>"><span class="glyphicon glyphicon-pencil"></span>Tulis Tutorial</a>
               </li>           
             </ul>
           </div>

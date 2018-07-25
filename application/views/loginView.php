@@ -1,27 +1,4 @@
-<?php $this->load->view('layouts/base_start') ?>
-    <head>
-
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Sewpad | Login</title>
-
-        <!-- CSS -->
-        <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>'assets/login/css/bootstrap.css')">
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-        <link rel="stylesheet" href="<?php echo base_url('assets/login/bootstrap/css/bootstrap.min.css');?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/login/font-awesome/css/font-awesome.min.css');?>">
-    <link rel="stylesheet" href="<?php echo base_url('assets/login/css/form-elements.css');?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/login/css/style.css');?>">
-        <!-- Favicon and touch icons -->
-        <link rel="shortcut icon" href="<?php echo base_url('assets/login/ico/favicon.png');?>">
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url('assets/login/ico/apple-touch-icon-144-precomposed.png');?>">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url('assets/login/ico/apple-touch-icon-114-precomposed.png');?>">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url('assets/login/ico/apple-touch-icon-72-precomposed.png');?>">
-        <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('assets/login/ico/apple-touch-icon-57-precomposed.png');?>">
-
-    </head>
-    <body>
+<?php $this->load->view('layouts/base_start_login') ?>
         <!-- Top content -->
         <div class="top-content">
             
@@ -44,8 +21,13 @@
                                 </div>
                             </div>
                             <div class="form-bottom">
-                                <?php echo form_open('login/cekdb'); ?>
-                                <?php echo validation_errors()?>
+                                <?php echo form_open('Login/cekLogin','class = "login-form"'); ?>
+                                <?php if(!empty(validation_errors())){ ?>
+                            <div class="alert alert-warning alert-dismissable">
+                                <a class="panel-close close" data-dismiss="alert">×</a> 
+                                <?php echo validation_errors(); ?>
+                            </div>
+                            <?php }?>
                                 <form role="form" action="" method="post" class="login-form">
                                     <div class="form-group">
                                         <label class="sr-only" for="form-username">Username</label>
@@ -55,10 +37,11 @@
                                         <label class="sr-only" for="form-password">Password</label>
                                         <input type="password" name="password" placeholder="Password..." class="form-password form-control" id="password">
                                     </div>
-                                    <div>
-                                    <label>Belum punya akun <a href="<?php echo site_url("login/register"); ?>"> Registrasi</a>
-                                    </label>
-                                     
+                                    <div class="text-center p-t-136">
+                                    <a class="txt2" href="<?php echo site_url('/Register');?>">
+                                        Create your Account
+                                    <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                                    </a>
                                     </div>
                                     <button type="submit" class="btn">Sign in!</button>
                                 </form>
@@ -82,6 +65,4 @@
         <!--[if lt IE 10]>
             <script src="assets/js/placeholder.js"></script>
         <![endif]-->
-
-    </body>
-<?php $this->load->view('layouts/base_end') ?>
+        <?php $this->load->view('layouts/base_end') ?>

@@ -1,36 +1,4 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?>
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Sewpad | Register</title>
-
-        <!-- CSS -->
-        <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>'assets/css/bootstrap.css')">
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-        <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css');?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/font-awesome/css/font-awesome.min.css');?>">
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/form-elements.css');?>">
-        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css');?>">
-        
-        <!-- Favicon and touch icons -->
-        <link rel="shortcut icon" href="<?php echo base_url('assets/ico/favicon.png');?>">
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url('assets/ico/apple-touch-icon-144-precomposed.png');?>">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url('assets/ico/apple-touch-icon-114-precomposed.png');?>">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url('assets/ico/apple-touch-icon-72-precomposed.png');?>">
-        <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('assets/ico/apple-touch-icon-57-precomposed.png');?>">
-
-    </head>
-
-    <body>
-
-<body>
+<?php $this->load->view('layouts/base_start_login') ?>
 
         <!-- Top content -->
         <div class="top-content">
@@ -43,45 +11,48 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                        <div class="col-sm-4 col-sm-offset-4 form-box">
                             <div class="form-top">
                                 <div class="form-top-left">
-                                    <h3>Login to our site</h3>
-                                    <p>Enter your username and password to log on:</p>
+                                    <h3>Register to our site</h3>
+                                    <p>Enter your data:</p>
                                 </div>
                                 <div class="form-top-right">
                                     <i class="fa fa-lock"></i>
                                 </div>
                             </div>
                             <div class="form-bottom">
+                            <?php echo form_open('Register/create','class = "login-form"'); ?>
+                                <?php if(!empty(validation_errors())){ ?>
+                            <div class="alert alert-warning alert-dismissable">
+                                <a class="panel-close close" data-dismiss="alert">×</a> 
+                                <?php echo validation_errors(); ?>
+                            </div>
+                            <?php }?>
                                 <form role="form" action="" method="post" class="login-form">
-                                    <div class="form-group">
-                                        <label class="sr-only" for="form-username">Username</label>
-                                        <input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
+                                <div class="form-group">
+                                        <label class="sr-only" for="email">Email</label>
+                                        <input type="text" name="email" placeholder="Email..." class="email form-control" id="email">
                                     </div>
                                     <div class="form-group">
-                                        <label class="sr-only" for="form-password">Password</label>
-                                        <input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+                                        <label class="sr-only" for="username">Username</label>
+                                        <input type="text" name="username" placeholder="Username..." class="username form-control" id="username">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="password">Password</label>
+                                        <input type="password" name="password" placeholder="Password..." class="password form-control" id="password">
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="txt2" href="<?php echo site_url('/Login')?>">
+                                            Already have a Account?
+                                        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                                        </a>
                                     </div>
                                     <button type="submit" class="btn">Sign in!</button>
                                 </form>
+                                <?php echo form_close(); ?>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3 social-login">
-                            <h3>...or login with:</h3>
-                            <div class="social-login-buttons">
-                                <a class="btn btn-link-2" href="https://id-id.facebook.com/login/">
-                                    <i class="fa fa-facebook"></i> Facebook
-                                </a>
-                                <a class="btn btn-link-2" href="#">
-                                    <i class="fa fa-twitter"></i> Twitter
-                                </a>
-                                <a class="btn btn-link-2" href="https://accounts.google.com/">
-                                    <i class="fa fa-google-plus"></i> Google Plus
-                                </a>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -90,13 +61,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
 
 
-
         <!-- Javascript -->
-        <script src="<?php echo base_url('assets/js/jquery-1.11.1.min.js');?>"></script>
-        <script src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js');?>"></script>
-        <script src="<?php echo base_url('assets/js/jquery.backstretch.min.js');?>"></script>
-        <script src="<?php echo base_url('assets/js/scripts.js');?>"></script>
+        <script src="<?php echo base_url('assets/login/js/jquery-1.11.1.min.js');?>"></script>
+        <script src="<?php echo base_url('assets/login/js/bootstrap/bootstrap.min.js');?>"></script>
+        <script src="<?php echo base_url('assets/login/js/jquery.backstretch.min.js');?>"></script>
+        <script src="<?php echo base_url('assets/login/js/scripts.js');?>"></script>
 
     </body>
-
-</html>
+    <?php $this->load->view('layouts/base_end') ?>

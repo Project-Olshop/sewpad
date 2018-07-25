@@ -8,7 +8,7 @@ class Tutorial_model extends CI_Model {
 	{
 		$idUser = $this->getUser($where);
 		$object = array('nama_tutorial' => $this->input->post('nama_tutorial'),
-						'deskripsi' => $this->input->post('deskripsi'),
+						'step_id' => $this->input->post('step_id'),
 						'idUser' => $this->input->post('$idUser'),  
 						'foto_tutorial' => $this->upload->data('file_name'));
 		$this->db->insert('tutorial',$object);
@@ -56,16 +56,6 @@ class Tutorial_model extends CI_Model {
         return ($query->num_rows() > 0) ? $query->result() : false;
 	}
 	
-	public function getUser($where)
-	{
-		$this->db->select('*')    
-          	 ->from('tutorial t')
-             ->join('user u', 'u.idUser=t.idUser','left')
-             ->where('u.idUser',$where);
-    	$query =$this->db->get();
-    	return $query->result();
-	}
-
 	public function getTotal()
     {
         return $this->db->count_all('tutorial');

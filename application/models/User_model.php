@@ -2,23 +2,67 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User_model extends CI_Model {
+	
+	public function __construct()
+	{
+		parent::__construct();
+		//Do your magic here
+	}
+	
+	public function login($username,$password){
+    	$this->db->select('id,username,password,company');
+    	$this->db->from('users');
+    	$this->db->where('username',$username);
+		$this->db->where('password',MD5($password));
+		$query =$this->db->get();
+		// return $this->db->get()->row();
+		if($query->num_rows()==1){
+            return $query->result();
+        }else{
+            return false;
+        }
+	}
 
 
 	public function insertUser()
 	{
-		$object = array('username' => $this->input->post('nama'),
+		$password = $this->input->post('password');
+        $pass = md5($password);
+        $company = 'member';
+        $photo = 'default.png';
+		$object = array('username' => $this->input->post('username'),
 						'email' => $this->input->post('email'), 
-						'password' => $this->input->post('password'));
-						// 'foto' => $this->upload->data('file_name'));
-		$this->db->insert('users',$object);
+						'password' => $pass,
+						'company' => $company,
+						'photo' => $photo);
+		$insert = $this->db->insert('users',$object);
+		if (!$insert && $this->db->_error_number()==1062) {
+			echo "<script>alert('Username is already used'); </script>";
+		}
 	}
 
-	function login($username,$password){
-    	$this->db->select('*');
-    	$this->db->from('users');
-    	$this->db->where('username',$username);
-    	$this->db->where('password',$password);
-    	return $this->db->get()->row();
+	public function register($username){
+        $this->db->select('username');
+        $this->db->from('users');
+        $this->db->where('username', $username);
+        $query = $this->db->get();
+        if($query->num_rows()==1){
+            return $query->result();
+        }else{
+            return false;
+        }
+    }
+	
+	public function selectAll($id){
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        if($query->num_rows()==1){
+            return $query->result();
+        }else{
+            return false;
+        }                        
 	}
 	
 	public function getDataUser()
@@ -30,25 +74,46 @@ class User_model extends CI_Model {
 
 	public function getUser($id)
 	{
-		$this->db->where('id',$id);
-		$query = $this->db->get('users');
-		return $query->result();
+		$this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('company', 'users');
+        $query = $this->db->get();
+        if($query->num_rows()>0){
+            return $query->result();
+        }else{
+            return false;
+        }
 	}
 
-	public function updateById($id)
+	public function updateNoPass($id)
 	{
 		$object = array('username' => $this->input->post('username'),
-						'email' => $this->input->post('email'),
-						'password' => $this->input->post('password'));
-						// 'foto' => $this->upload->data('file_name'));
+						'email' => $this->input->post('email'));
 		$this->db->where('id',$id);
 		$this->db->update('users', $object);
 	}
 	
-	public function deleteById($id)
-	{
-		$this->db->where('id',$id);
-		$query = $this->db->delete('users');
+	public function updatePass($id)
+    {   
+        $password = $this->input->post('password');
+        $pass = md5($password);
+
+                $object = array(
+                'password' => $pass
+            );
+            $this->db->where('id', $id);
+            $this->db->update('users', $object);
+
+	}
+	
+	public function updatePic($id)
+    {   
+                $object = array(
+                'photo' => $this->upload->data('file_name')
+            );
+            $this->db->where('id', $id);
+            $this->db->update('users', $object);
+
 	}
 
 	public function list($limit, $start, $search)
@@ -79,47 +144,6 @@ class User_model extends CI_Model {
 		}
         $query = $this->db->get('users', $search);
 		return $this->db->count_all('users');
-    }
-
-    // public function cari($keyword)
-    // {
-	// 	$keyword    =   $this->input->post('cari'); 
-    //     $query = $this->db->query("SELECT * FROM user WHERE namaUser LIKE '%$keyword%'");
-    //     $this->db->like('namaUser', $keyword);
-    //     return $query->result();
-	// }    
-	
-	// public function getData($rowno,$rowperpage,$search="") {
- 
-	// 	$this->db->select('*');
-	// 	$this->db->from('user');
-	// 	if($search != ''){
-	// 	  $this->db->like('title', $search);
-	// 	  $this->db->or_like('content', $search);
-	// 	}
-	// 	$this->db->limit($rowperpage, $rowno); 
-	// 	$query = $this->db->get();
-	 
-	// 	return $query->result_array();
-	// }
-
-	// public function getrecordCount($search = '') {
-
-	// 	$this->db->select('count(*) as allcount');
-	// 	$this->db->from('posts');
-	 
-	// 	if($search != ''){
-	// 	  $this->db->like('title', $search);
-	// 	  $this->db->or_like('content', $search);
-	// 	}
-	
-	// 	$query = $this->db->get();
-	// 	$result = $query->result_array();
-	 
-	// 	return $result[0]['allcount'];
-	// }
- 
+	}
 }
-
-/* End of file Pegawai_model.php */
-/* Location: ./application/models/Pegawai_model.php */
+?>

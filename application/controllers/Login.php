@@ -11,54 +11,52 @@
 
         public function logout()
         {
-            # code...
+            $this->load->library('session');
             $this->session->unset_userdata('logged_in');
             $this->session->sess_destroy();
-            redirect('login','refresh');
+            redirect('Login','refresh');
         }
 
-        public function cekDb()
+        public function cekDb($password)
         {
-            # code...
             $this->load->model('User_model');
             $username = $this->input->post('username'); 
-            $password = $this->input->post('password'); 
             $result = $this->User_model->login($username,$password);
-            if($result)
-            {
-                $data = [
-                    'tipe' => $result->company,
-                    'username' => $result->username
-                ];
-                $this->session->set_userdata($data);
-
-                if($this->session->tipe=='admin'){
-                    redirect('admin/');
+            if($result){
+                $session_array = array();
+                foreach ($result as $key) {
+                    $session_array = array(
+                        'id'=>$key->id,
+                        'username'=>$key->username,
+                        'company'=>$key->company
+                    );
+                    $this->session->set_userdata('logged_in',$session_array);
                 }
-                else{redirect('member/');}
-                
-            }
-            else
-            {
-                redirect('login/');
+                return true;
+            }else{
+                $this->form_validation->set_message('cekDb',"login failed");
+                return false;
             }
         }
 
-        public function register()
+        public function cekLogin()
         {
             $this->load->library('form_validation');
-            $this->form_validation->set_rules('username', 'Username', 'trim|required');
-            $this->form_validation->set_rules('password', 'Password', 'trim|required');
+            $this->form_validation->set_rules('username', 'username', 'trim|required');
+            $this->form_validation->set_rules('password', 'password', 'trim|required|callback_cekDb');
             if ($this->form_validation->run() == FALSE) {
-                # code...
-                $this->load->view('registerView');
+                $this->load->view('loginView');
             } else {
-                $this->load->model('user');
-                $this->user->insert();
-                redirect('login','refresh');
+                $session_data = $this->session->userdata('logged_in');
+                $data['username'] = $session_data['username'];
+                $data['company'] = $session_data['company'];
+                if ($data['company']=='admin') {
+                    redirect('HomeAdmin/');
+                }else{
+                    redirect('Member/');
+                }
             }
         }
-
     }
     
     /* End of file Controllername.php */
