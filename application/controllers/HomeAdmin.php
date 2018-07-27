@@ -28,6 +28,7 @@ class HomeAdmin extends CI_Controller {
 		//$id = $data['id'];
 		//$user = $data['username'];
 		//$data['name'] = $this->user->selectAll($id,$user);  
+		$this->load->view('admin/header');
 		$this->load->view('admin/sidebar');
 		$this->load->view('admin/index',$data);
 	}

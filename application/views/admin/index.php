@@ -1,5 +1,3 @@
-<?php $this->load->view('admin/header'); ?>
-<?php $this->load->view('admin/sidebar'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <title>Ela - Bootstrap Admin Dashboard Template</title>
+    <title>Admin | SewPad </title>
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url();?>assets/awal/css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -49,7 +47,7 @@
             <div class="container-fluid">
                 <!-- Start Page Content -->
                 <div class="row">
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <div class="card p-30">
                             <div class="media">
                                 <div class="media-left meida media-middle">
@@ -74,21 +72,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card p-30">
-                            <div class="media">
-                                <div class="media-left meida media-middle">
-                                    <span><i class="fa fa-archive f-s-40 color-warning"></i></span>
-                                </div>
-                                <div class="media-body media-text-right">
-                                    <h2>25</h2>
-                                    <p class="m-b-0">Stores</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
+                    </div> -->
+                    <div class="col-md-6">
                         <div class="card p-30">
                             <div class="media">
                                 <div class="media-left meida media-middle">
@@ -96,14 +81,27 @@
                                 </div>
                                 <div class="media-body media-text-right">
                                     <h2>847</h2>
-                                    <p class="m-b-0">Customer</p>
+                                    <p class="m-b-0">Member</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card p-30">
+                            <div class="media">
+                                <div class="media-left meida media-middle">
+                                    <span><i class="fa fa-archive f-s-40 color-warning"></i></span>
+                                </div>
+                                <div class="media-body media-text-right">
+                                    <h2>25</h2>
+                                    <p class="m-b-0">Upload Tutorial</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row bg-white m-l-0 m-r-0 box-shadow ">
+                <div class="row bg-dark m-l-0 m-r-0 box-shadow ">
 
                     <!-- column -->
                      <div class="col-lg-8">

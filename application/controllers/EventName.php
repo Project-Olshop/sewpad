@@ -73,8 +73,8 @@ class EventName extends CI_Controller {
 				$this->EventNameModel->updateName($id);
 				echo "<script>alert('Successfully Updated'); </script>";
 				redirect('EventName','refresh');
+			}
 		}
-	}
 	}
 
 	public function delete($id)

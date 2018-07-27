@@ -13,7 +13,7 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
                         <!-- Logo icon -->
-                        <b><img src="<?php echo base_url();?>assets/img/logo.png" alt="homepage" width="150"></b>
+                        <b><img src="<?php echo base_url();?>assets/img/2.jpg" alt="homepage" width="220"></b>
                     </a>
                 </div>
                 <!-- End Logo -->
