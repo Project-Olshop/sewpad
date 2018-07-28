@@ -6,7 +6,8 @@
     
         public function index()
         {
-            $this->load->view('loginView');
+            $data['title'] = 'Login';
+            $this->load->view('loginView', $data);
         }
 
         public function logout()

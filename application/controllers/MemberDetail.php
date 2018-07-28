@@ -9,6 +9,7 @@ class MemberDetail extends CI_Controller {
         $data1['username']=$session_data['username'];
         $data['company']=$session_data['company'];
         $data['id']=$session_data['id'];
+        $data['title'] = 'Profile';
 
         $this->load->model('User_model');
         $id = $data['id'];
@@ -90,7 +91,7 @@ class MemberDetail extends CI_Controller {
     public function updatePass()
         {
         $session_data=$this->session->userdata('logged_in');
-        $data['username']=$session_data['username'];
+        $data1['username']=$session_data['username'];
         $data['company']=$session_data['company'];
         $data['id']=$session_data['id'];
 
@@ -108,7 +109,7 @@ class MemberDetail extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
         $data['username'] = $this->User_model->selectAll($id);
 
-        $this->load->view('layouts/base_start_member', $data);
+        $this->load->view('layouts/base_start_member', $data1);
         $this->load->view('member/profile', $data);
         $this->load->view('layouts/base_end'); 
         } else {

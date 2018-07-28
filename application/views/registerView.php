@@ -1,7 +1,7 @@
 <?php $this->load->view('layouts/base_start_login') ?>
 
         <!-- Top content -->
-        <div class="top-content">
+        <div class="top-content" style="background-color:  #f89751; padding-top: 0px;padding-bottom: 0px">
             
             <div class="inner-bg">
                 <div class="container">
@@ -48,7 +48,7 @@
                                         <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                                         </a>
                                     </div>
-                                    <button type="submit" class="btn">Sign in!</button>
+                                    <button type="submit" class="btn">Register</button>
                                 </form>
                                 <?php echo form_close(); ?>
                             </div>
@@ -68,4 +68,3 @@
         <script src="<?php echo base_url('assets/login/js/scripts.js');?>"></script>
 
     </body>
-    <?php $this->load->view('layouts/base_end') ?>

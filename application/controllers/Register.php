@@ -5,7 +5,8 @@ class Register extends CI_Controller {
 
 	public function index()
 	{
-        $this->load->view('registerView');
+        $data['title'] = 'Register';
+        $this->load->view('registerView', $data);
 	}
 
 	public function create()

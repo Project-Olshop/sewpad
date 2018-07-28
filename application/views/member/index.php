@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css');?>">
 
         <script src="js/modernizr-2.6.2.min.js"></script>
-    <section id="tutorial">
+        <section id="tutorial">
     <div id="fh5co-blog-section">
       <div class="container">
         <div class="row">
@@ -39,24 +39,22 @@
           </div>
         </div>
       </div>
-      <?php if (isset($tutorial)) { ?>
-      <?php $number = 1; foreach($tutorial as $row) { ?>
+      <?php if (isset($results)) { ?>
+      <?php foreach($results as $row) { ?>
       <div class="container">
         <div class="row row-bottom-padded-md">
           <div class="col-lg-4 col-md-4">
             <div class="fh5co-blog animate-box">
-            <a href="<?php echo site_url('tutorial/show/'.$row->id) ?>">
-              <?php echo $number++ ?>
-            </a>
-            <a href="<?php echo site_url('tutorial/show/'.$row->id) ?>">
-              <img src="<?php echo base_url('assets/upload/')?><?php echo $row->foto_tutorial; ?>" width="100">
+            <a href="<?php echo base_url('tutorial/show/'.$row->idTutorial) ?>">
+              <img src="<?php echo base_url('assets/img/'.$row->photo_hasil)?>" width="100">
             </a>
               <div class="blog-text">
                 <div class="prod-title">
-                  <h3><a href="<?php echo base_url('/tutorial/show'.$row->id);?>"><?php echo $row->nama_tutorial; ?>45 Minimal Worksspace Rooms for Web Savvys</a></h3>
-                  <span class="posted_by">Sep. 15th</span>
-                  <span class="comment"><a href="<?php echo base_url('/tutorial/show'.$row->id);?>">21<i class="icon-bubble2"></i></a></span>
-                  <a href="<?php echo base_url('/tutorial/show'.$row->id);?>" class="btn btn-primary">Read More</a>
+                  <h3><a href="<?php echo base_url('tutorial/show/'.$row->idTutorial);?>">
+                  <?php echo $row->nama_tutorial; ?></a></h3>
+                  <span class="comment"><a href="<?php echo base_url('tutorial/show/'.$row->idTutorial);?>">
+                  <i class="icon-bubble2"></i></a></span>
+                  <a href="<?php echo base_url('tutorial/show/'.$row->idTutorial);?>" class="btn btn-primary">Read More</a>
                 </div>
               </div> 
             </div>

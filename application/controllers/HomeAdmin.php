@@ -13,6 +13,7 @@ class HomeAdmin extends CI_Controller {
 		$data['username']=$session_data['username'];
 		$data['company']=$session_data['company'];
 		$data['id']=$session_data['id'];
+		$data['title'] = 'HomeAdmin';
 
 		$this->load->model('User_model');
 		$this->load->model('Admin_model');
@@ -28,7 +29,7 @@ class HomeAdmin extends CI_Controller {
 		//$id = $data['id'];
 		//$user = $data['username'];
 		//$data['name'] = $this->user->selectAll($id,$user);  
-		$this->load->view('admin/header');
+		$this->load->view('admin/header',$data);
 		$this->load->view('admin/sidebar');
 		$this->load->view('admin/index',$data);
 	}

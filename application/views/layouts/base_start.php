@@ -32,6 +32,9 @@
 			<link rel="stylesheet" href="<?php echo base_url();?>assets/assets/css/animate.min.css">
 			<link rel="stylesheet" href="<?php echo base_url();?>assets/assets/css/owl.carousel.css">
 			<link rel="stylesheet" href="<?php echo base_url();?>assets/assets/css/main.css">
+      
+      <!-- icon -->
+      <link rel="shortcut icon" href="<?php echo base_url('assets/login/ico/favicon.png');?>">
 
     <style type="text/css">
 				.price-title h2 {
@@ -49,6 +52,7 @@
 					padding-bottom: 10px;
 				}
 			</style>
+
 
   </head>
 

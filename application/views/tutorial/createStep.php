@@ -28,38 +28,37 @@
       <div style="border: 1px solid #c2c4c6; padding-left: 20px; padding-right: 20px; padding-top: 20px">
         <h3>Tutorial</h3>
         <hr>
-        <?php echo form_open_multipart('Tutorial/create'); ?>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Judul :</label>
-            <div class="col-lg-8">
-              <input class="form-control" id="nama_tutorial" name="nama_tutorial" type="text" placeholder="Judul">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Kategori :</label>
-            <div class="col-lg-8">
-            <select class="form-control" name="kat_id">
-							<option  value="">Pilih Kategori</option>                   
-            	<?php foreach($kat_list as $row) { ?>
-            <option value="<?php echo $row->idKat;?>"><?php echo $row->kategori;?></option>
-            <?php } ?>
-						</select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Foto :</label>
-            <div class="col-lg-8">
-            <input class="form-control" id="photo_hasil" type="file" name="photo_hasil">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-md-8">
-              <input type="submit" class="btn btn-primary" value="Submit">
-            </div>
-          </div>
-        <?php echo form_close();?>
+        
       </div>
       <br><br>
+      <div style="border: 1px solid #c2c4c6; padding-left: 20px; padding-right: 20px; padding-top: 20px">
+      <?php echo form_open_multipart('Tutorial/createStep'); ?>
+        <h3>Langkah - Langkah</h3>
+        <hr>
+        <?php $number = 1; ?>
+
+          <div class="form-group">
+            <label class="col-md-3 control-label">Step<?php echo $number++ ?> :</label>
+            <div class="col-md-8">
+              <input class="form-control" type="text" name="step" placeholder="Tulis Langkah">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-3 control-label">Masukkan Foto:</label>
+            <div class="col-md-8">
+              <input class="form-control" type="file" name="photo" placeholder="Masukkan Foto">
+            </div>
+          </div>
+        
+          <div class="form-group">
+            <div class="col-md-8">
+              <input type="submit" class="btn btn-primary" value="Simpan">
+            </div>
+          </div>
+
+        <?php echo form_close();?>
+      </div>
     </div>
   </div>
 			</div>

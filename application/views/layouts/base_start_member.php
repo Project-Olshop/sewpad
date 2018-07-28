@@ -33,22 +33,8 @@
 			<link rel="stylesheet" href="<?php echo base_url();?>assets/assets/css/owl.carousel.css">
 			<link rel="stylesheet" href="<?php echo base_url();?>assets/assets/css/main.css">
 
-    <style type="text/css">
-				.price-title h2 {
-					background: #ef5e4e none repeat scroll 0 0;
-					color: #fff;
-					display: inline-block;
-					font-size: 20px;
-					font-weight: 600;
-					line-height: 55px;
-					margin-top: -1px;
-					text-align: center;
-					width: 199px;
-					border-radius: 50px;
-					padding-top: 10px;
-					padding-bottom: 10px;
-				}
-			</style>
+    <!-- icon -->
+    <link rel="shortcut icon" href="<?php echo base_url('assets/login/ico/favicon.png');?>">
 
   </head>
 

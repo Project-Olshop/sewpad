@@ -1,7 +1,6 @@
 <?php $this->load->view('layouts/base_start_login') ?>
         <!-- Top content -->
-        <div class="top-content">
-            
+        <div class="top-content" style="background-color:  #f89751; padding-top: 0px;padding-bottom: 0px">                     
             <div class="inner-bg">
                 <div class="container">
                     <div class="row">
@@ -65,4 +64,3 @@
         <!--[if lt IE 10]>
             <script src="assets/js/placeholder.js"></script>
         <![endif]-->
-        <?php $this->load->view('layouts/base_end') ?>
