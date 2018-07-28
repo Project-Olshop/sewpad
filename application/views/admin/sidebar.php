@@ -45,7 +45,7 @@
                             <ul aria-expanded="false" class="collapse">
 
                                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                                    <a class="nav-link" href="<?php echo base_url();?>LaporanUser">
+                                    <a class="nav-link" href="<?php echo base_url();?>laporan/pdf">
                                         <i class="fa fa-wpforms"></i>
                                         <span class="nav-link-text">Laporan User</span>
                                     </a>

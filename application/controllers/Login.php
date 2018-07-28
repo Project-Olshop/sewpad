@@ -51,7 +51,7 @@
                 $session_data = $this->session->userdata('logged_in');
                 $data['username'] = $session_data['username'];
                 $data['company'] = $session_data['company'];
-                if ($data['company']=='admin') {
+                if ($data['company']=='Admin') {
                     redirect('HomeAdmin/');
                 }else{
                     redirect('Member/');

@@ -8,26 +8,24 @@ class Laporan extends CI_Controller {
 	 	parent::__construct();
 	 	$this->load->library('pdf');
 	}
-	
+
     public function pdf()
     {
         $data = [
-            "title" => "Contoh",
-            "data"  => [
-                ["kolom1" => "Kolom 1", "kolom2" => "Kolom2"],
-                ["kolom1" => "Kolom 1", "kolom2" => "Kolom2"],
-                ["kolom1" => "Kolom 1", "kolom2" => "Kolom2"],
-            ]
+            "title" => "User",
+            
         ];
 
+        $data['users_list'] = $this->DataUserModel->getDataUser();
+
         $this->pdf->setPaper('A4', 'portrait');
-        $this->pdf->load_view('laporan', $data, 'laporan-contoh.pdf');
+        $this->pdf->load_view('laporan', $data, 'laporan-user.pdf');
     }
 
     public function html()
     {
         $data = [
-            "title" => "Contoh",
+            "title" => "User",
         ];
         
         $this->load->view('laporan', $data);

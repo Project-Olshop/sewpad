@@ -8,26 +8,31 @@
 </head>
 <body>
     <h1><?php echo "Laporan $title" ?> </h1>
-    <table>
-        <tr>
-            <th>No.</th>
-            <th>Kolom 1</th>
-            <th>Kolom 2</th>
-        </tr>
+    <table border="3" align="center">
+        <thead>
+			<tr>
+				<th>Id User</th>
+				<th>Username</th>
+				<th>Email</th>
+                <th>Company</th>
+				<th>Foto User</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($users_list as $data): ?>
+       			<tr>
+          			<td><?php echo $data->id ?></td>
+          			<td><?php echo $data->username ?></td>
+          			<td><?php echo $data->email ?></td>
+                    <td><?php echo $data->company ?></td>
+                    <td><?php echo $data->photo ?></td>
+       			</tr>
+       		<?php endforeach ?>
+		</tbody>
 
-        <tr>
-            <th>1</th>
-            <th>Kolom 1</th>
-            <th>Kolom 2</th>
-        </tr>
-
-        <tr>
-            <th>2</th>
-            <th>Kolom 1</th>
-            <th>Kolom 2</th>
-        </tr>
 
     </table>
+    </center>
     
 
 </body>

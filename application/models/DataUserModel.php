@@ -25,7 +25,8 @@ class DataUserModel extends CI_Model {
 			if($search!='null')
 			{
 				$this->db->like('username',$search);
-				$this->db->or_like('email',$search);
+                $this->db->or_like('email',$search);
+                $this->db->or_like('company',$search);
 			}
 
 			$query = $this->db->get('users', $limit, $start);
