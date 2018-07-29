@@ -99,6 +99,39 @@
 
         <?php echo form_close();?>
       </div>
+      <br><br>
+      <div style="border: 1px solid #c2c4c6; padding-left: 20px; padding-right: 20px; padding-top: 20px">
+        <h3>My Tutorial</h3>
+        <hr>
+        <table id="example" class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Judul Tutorial</th>
+              <th>Kategori</th>
+              <th>Foto</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php $i = 0; ?>
+            <?php foreach($tutorials as $item) { ?>
+            <tr>
+              <td><?php echo ++$i; ?></td>
+              <td><?php echo $item['nama_tutorial']; ?></td>
+              <td><?php echo $item['kategori']; ?></td>
+              <td><img src="<?php echo base_url(); ?>assets/img/<?php echo $item['photo_hasil']; ?>" alt="" width="100"></td>
+              <td>
+                <a href="<?php echo base_url(); ?>tutorial/edit/<?php echo $item['idTutorial']; ?>">
+                  <button type="button" class="btn btn-success btn-sm">Edit</button>
+                </a>
+                <button type="button" class="btn btn-danger btn-sm" onclick="deleteMyTutorial('<?php echo $item['idTutorial']; ?>')">Hapus</button>
+              </td>
+            </tr>
+            <?php } ?>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 			</div>

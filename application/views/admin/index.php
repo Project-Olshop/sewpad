@@ -80,7 +80,7 @@
                                     <span><i class="fa fa-user f-s-40 color-danger"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2>847</h2>
+                                    <h2><?php echo count($countMember); ?></h2>
                                     <p class="m-b-0">Member</p>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                                     <span><i class="fa fa-archive f-s-40 color-warning"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2>25</h2>
+                                    <h2><?php echo count($countTutorial); ?></h2>
                                     <p class="m-b-0">Upload Tutorial</p>
                                 </div>
                             </div>
@@ -119,30 +119,17 @@
                             <h4>Kategori Tutorial</h4>
                             <hr>
                             <div class="card-body browser">
-                                <p class="f-w-600">iMacs <span class="pull-right">85%</span></p>
+                                <?php $jumlah_tutorial = count($countTutorial); ?>
+                                <?php foreach($kategori as $item) { ?>
+                                <?php
+                                    $jumlah_kategori = count($this->Admin_model->_getCountKategoriOnTutorial($item['idKat']));
+                                    $persentase = ($jumlah_kategori * 100) / $jumlah_tutorial;
+                                ?>
+                                <p class="f-w-600"><?php echo $item['kategori']; ?> <span class="pull-right"><?php echo $persentase; ?>%</span></p>
                                 <div class="progress ">
-                                    <div role="progressbar" style="width: 85%; height:8px;" class="progress-bar bg-danger wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
+                                    <div role="progressbar" style="width: <?php echo $persentase; ?>%; height:8px;" class="progress-bar bg-danger"> <span class="sr-only"><?php echo $persentase; ?>% Complete</span> </div>
                                 </div>
-
-                                <p class="m-t-30 f-w-600">iBooks<span class="pull-right">90%</span></p>
-                                <div class="progress">
-                                    <div role="progressbar" style="width: 90%; height:8px;" class="progress-bar bg-info wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
-                                </div>
-
-                                <p class="m-t-30 f-w-600">iPhone<span class="pull-right">65%</span></p>
-                                <div class="progress">
-                                    <div role="progressbar" style="width: 65%; height:8px;" class="progress-bar bg-success wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
-                                </div>
-
-                                <p class="m-t-30 f-w-600">Samsung<span class="pull-right">65%</span></p>
-                                <div class="progress">
-                                    <div role="progressbar" style="width: 65%; height:8px;" class="progress-bar bg-warning wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
-                                </div>
-
-								<p class="m-t-30 f-w-600">android<span class="pull-right">65%</span></p>
-                                <div class="progress m-b-30">
-                                    <div role="progressbar" style="width: 65%; height:8px;" class="progress-bar bg-success wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
-                                </div>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>

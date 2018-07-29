@@ -81,16 +81,8 @@
 				<td><img src="<?php echo base_url()?>assets/img/upload/<?php echo $data->photo ?>" width="100"></td>
 
 				<td>
-					<a href="javascript:void(0);" 
-						data-id="<?php echo $data->id ; ?>" 
-						data-name="<?php echo $data->username ; ?>" 
-						data-email="<?php echo $data->email ; ?>" 
-						data-photo="<?php echo $data->photo ; ?>" 
-						data-toggle="modal"  
-						data-target="#edit-data">
-                        <button type="button" data-toggle="modal" data-target="#ubah-data" class="btn btn-info">
+					<button type="button" class="btn btn-info" onclick="openModalUpdate('<?php echo $data->username; ?>','<?php echo $data->email; ?>', '<?php echo $data->company; ?>')">
 						<span class="fa fa-edit">&nbsp;Update </span></button>
-					</a>
 					<a href="<?php echo site_url()?>/DataUser/delete/<?php echo $data->id; ?>" class="btn btn-danger" 
 						onclick="return confirm('Are you sure to delete this data permanently?'); ">
 						<span class="fa fa-trash"></span>&nbsp;Delete</a>
@@ -170,21 +162,21 @@
 		                        <label class="col-lg-4 col-sm-4 control-label">Username</label>
 		                        <div class="col-lg-12">
 									<input type="hidden" id="id" name="id">
-		                            <input type="text" class="form-control" name="username" placeholder="Masukkan username" required>
+		                            <input type="text" class="form-control" id="editUsername" name="username" placeholder="Masukkan username" required readonly>
 		                        </div>
 		                    </div>
 		                    <div class="form-group">
 		                        <label class="col-lg-4 col-sm-4 control-label">Email</label>
 		                        <div class="col-lg-12">
-		                        	<textarea class="form-control" name="email" placeholder="Masukkan email" required></textarea>
+		                        	<textarea class="form-control" name="email" id="editEmail" placeholder="Masukkan email" required></textarea>
 		                        </div>
 		                    </div>
 							<div class="form-group">
 		                        <label class="col-lg-4 col-sm-4 control-label">Company</label>
 		                        <div class="col-lg-12">
 		                        	<select name="company" class="form-control">
-										<option value="Admin">Admin</option>
-										<option value="Member">Member</option>
+										<option id="editAdmin" value="Admin">Admin</option>
+										<option id="editMember" value="Member">Member</option>
 									</select>
 		                        </div>
 		                    </div>
@@ -204,21 +196,6 @@
 	        </div>
 	    </div>
 	</div>
-	<!-- END Modal Ubah -->
-	<script>
-	    $(document).ready(function() {
-	        // Untuk sunting
-	        $('#edit-data').on('show.bs.modal', function (event) {
-	            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
-	            var modal          = $(this)
- 
-	            // Isi nilai pada field
-	            modal.find('#id').attr("value",div.data('id'));
-	            modal.find('#username').attr("value",div.data('username'));
-	            modal.find('#photo').attr("value",div.data('photo'));
-	        });
-	    });
-	</script>
 
 	
     <!-- Bootstrap tether Core JavaScript -->
@@ -241,6 +218,18 @@
 <script type="text/javascript">
       $(document).ready(function() {
         $('#example').DataTable();
+
+		openModalUpdate = function(username, email, company) {
+			$('#edit-data').modal('show');
+			$('#editUsername').val(username);
+			$('#editEmail').val(email);
+
+			if(company == 'Admin' || company == 'admin') {
+				$('#editAdmin').attr('selected', 'selected');
+			} else {
+				$('#editMember').attr('selected', 'selected');
+			}
+		}
       });
     </script>
 

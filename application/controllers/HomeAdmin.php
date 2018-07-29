@@ -5,8 +5,19 @@ class HomeAdmin extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+
+		if($this->session->has_userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+
+            if($session_data['company'] != 'Admin') {
+                redirect('home');
+            }
+        } else {
+            redirect('Login');
+        }
 		
 	}
+	
 	public function index()
 	{	
 		$session_data=$this->session->userdata('logged_in');
@@ -21,9 +32,9 @@ class HomeAdmin extends CI_Controller {
 		$id = $data['id'];
 		$user = $data['username'];
 		$data['username'] = $this->User_model->SelectAll($id,$user);
-		$data['countUser'] = $this->Admin_model->getCountUser();
-		$data['countTutorial'] = $this->Admin_model->getCountTutorial();
-		$data['allTutorial'] = $this->Admin_model->getAllTutorial();
+		$data['countMember'] = $this->Admin_model->_getAllMember();
+		$data['countTutorial'] = $this->Admin_model->_getAllTutorial();
+		$data['kategori'] = $this->Admin_model->_getAllKategori();
 
 		//$this->load->model('user');
 		//$id = $data['id'];

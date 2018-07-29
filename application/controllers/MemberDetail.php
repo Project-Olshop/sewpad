@@ -2,6 +2,20 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class MemberDetail extends CI_Controller {
+    public function __construct()
+    {
+        parent::__construct();
+        
+        if($this->session->has_userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+
+            if($session_data['company'] != 'Member') {
+                redirect('HomeAdmin');
+            }
+        } else {
+            redirect('Login');
+        }
+    } 
 
 	public function index()
 	{
@@ -9,11 +23,16 @@ class MemberDetail extends CI_Controller {
         $data1['username']=$session_data['username'];
         $data['company']=$session_data['company'];
         $data['id']=$session_data['id'];
-        $data['title'] = 'Profile';
+        $data1['title'] = 'Profile';
 
         $this->load->model('User_model');
         $id = $data['id'];
         $data['username'] = $this->User_model->selectAll($id);
+
+        $query = $this->db->where('username', $data1['username']);
+        $query = $this->db->get('v_tutorial');
+        
+        $data['tutorials'] = $query->result_array();
 
         // $this->load->model('EventScheduleModel');
         // $data["artist_list"] = $this->User_model->getArtistOption();

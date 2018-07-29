@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: 28 Jul 2018 pada 14.44
--- Versi Server: 10.1.26-MariaDB
--- PHP Version: 7.1.9
+-- Host: localhost
+-- Waktu pembuatan: 29 Jul 2018 pada 22.58
+-- Versi server: 10.1.32-MariaDB
+-- Versi PHP: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -43,7 +43,8 @@ INSERT INTO `kategori_tutorial` (`idKat`, `kategori`, `deskripsi`) VALUES
 (2, 'Pakaian Pesta', 'Pakaian pesta walaupun tidak setiap hari kita memakainya, tetapi wajib kita mempunyai satu baju jenis ini untuk dipakai dihari penting kalian.'),
 (3, 'Pakaian Anak', 'Pakaian sesuai untuk anak - anak, dan ukurannya di sesuaikan dengan usia anak tersebut.'),
 (4, 'Pakaian Muslim', 'Pakaian khusus untuk muslim, bila wanita ada kewajiban atau syarat tertentu dalam desainnya, yaitu harus menutup aurat.'),
-(5, 'Pakaian Sehari - hari', 'Pakaian yang dipakai dalam kegiatan keseharian, yang pakaiannya bersifat santai dan nyaman untuk dipakai.');
+(5, 'Pakaian Sehari - hari', 'Pakaian yang dipakai dalam kegiatan keseharian, yang pakaiannya bersifat santai dan nyaman untuk dipakai.'),
+(6, 'Pakaian Perkawinan', '...');
 
 -- --------------------------------------------------------
 
@@ -54,15 +55,20 @@ INSERT INTO `kategori_tutorial` (`idKat`, `kategori`, `deskripsi`) VALUES
 CREATE TABLE `step` (
   `idStep` int(11) UNSIGNED NOT NULL,
   `tutorial_id` int(11) UNSIGNED NOT NULL,
-  `step1` varchar(1000) DEFAULT NULL,
-  `photo1` varchar(255) DEFAULT NULL,
-  `step2` varchar(1000) DEFAULT NULL,
-  `photo2` varchar(255) DEFAULT NULL,
-  `step3` varchar(1000) DEFAULT NULL,
-  `photo3` varchar(255) DEFAULT NULL,
-  `step4` varchar(1000) DEFAULT NULL,
-  `photo4` varchar(255) DEFAULT NULL
+  `step` varchar(1000) DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `step`
+--
+
+INSERT INTO `step` (`idStep`, `tutorial_id`, `step`, `photo`) VALUES
+(1, 6, 'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.', 'root@fumukaba-HP-Pavilion-g4-Notebook-PC_-home-fumukaba-Documents-Growth-Ionic-ionic-server_0111.png'),
+(4, 6, 'Test', 'root@fumukaba-HP-Pavilion-g4-Notebook-PC_-home-fumukaba-Documents-Growth-Ionic-ionic-server_0111.png'),
+(5, 5, 'Test', 'Politeknik_Negeri_Malang_-_Mozilla_Firefox_0061.png'),
+(6, 7, 'Langkah 1: Jahit Kain', 'Library_0132.png'),
+(7, 8, 'Langkah 1', 'mikrotik_hotspot_-_status_-_Mozilla_Firefox_004.png');
 
 -- --------------------------------------------------------
 
@@ -74,7 +80,7 @@ CREATE TABLE `tutorial` (
   `idTutorial` int(11) UNSIGNED NOT NULL,
   `nama_tutorial` varchar(50) NOT NULL,
   `kat_id` int(11) UNSIGNED NOT NULL,
-  `foto_tutorial` varchar(100) NOT NULL,
+  `photo_hasil` varchar(100) NOT NULL,
   `idUser` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -82,8 +88,11 @@ CREATE TABLE `tutorial` (
 -- Dumping data untuk tabel `tutorial`
 --
 
-INSERT INTO `tutorial` (`idTutorial`, `nama_tutorial`, `kat_id`, `foto_tutorial`, `idUser`) VALUES
-(1, 'Baju ', 5, '77c3bfaf356c1839b145ed2fce30c348.jpg', 2);
+INSERT INTO `tutorial` (`idTutorial`, `nama_tutorial`, `kat_id`, `photo_hasil`, `idUser`) VALUES
+(5, 'Pembuatan Website 2', 1, 'root@fumukaba-HP-Pavilion-g4-Notebook-PC_-home-fumukaba-Documents-Growth-Ionic-ionic-server_011.png', 15),
+(6, 'Pembuatan Mobile App', 1, 'Library_0131.png', 15),
+(7, 'Pembuatan Aplikasi Berbasis Web', 4, 'JTI_Polinema_–_Jurusan_Teknologi_Informasi_Polinema_-_Mozilla_Firefox_008.png', 16),
+(8, 'Pembuatan Kemeja Black Panther', 4, 'a7@A7:_~_007.png', 16);
 
 -- --------------------------------------------------------
 
@@ -117,27 +126,53 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `activation_code`, `
 (4, 'reza', '5f4dcc3b5aa765d61d8327deb882cf99', 'reza@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'Member', 'default.png'),
 (12, 'Ariana', 'af5d97f43ff2fb264b7d18042a5c6112', 'ariana@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'Member', 'img.png'),
 (13, 'Amanda Virla', '6209804952225ab3d14348307b5a4a27', 'amanda@yahoo.co.id', NULL, NULL, NULL, NULL, NULL, NULL, 'Member', 'images-9.jpg'),
-(14, 'Member', 'aa08769cdcb26674c6706093503ff0a3', 'member@yahoo.com', NULL, NULL, NULL, NULL, NULL, NULL, 'Member', 'hellokitty1.jpg');
+(14, 'Member', 'aa08769cdcb26674c6706093503ff0a3', 'member@yahoo.com', NULL, NULL, NULL, NULL, NULL, NULL, 'Member', 'hellokitty1.jpg'),
+(15, 'fuad', '535232c8611cb52b7f23db3e5ce3c246', 'fuad@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'Member', 'root@fumukaba-HP-Pavilion-g4-Notebook-PC_-home-fumukaba-Documents-Growth-Ionic-ionic-server_010.png'),
+(16, 'fumukaba', '535232c8611cb52b7f23db3e5ce3c246', 'fumukaba@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'Member', 'default.png'),
+(17, 'hadi', '76671d4b83f6e6f953ea2dfb75ded921', 'hadi@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'Member', 'default.png');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `v_tutorial`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `v_tutorial` (
+`idTutorial` int(11) unsigned
+,`nama_tutorial` varchar(50)
+,`kategori` varchar(255)
+,`photo_hasil` varchar(100)
+,`username` varchar(100)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `v_tutorial`
+--
+DROP TABLE IF EXISTS `v_tutorial`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_tutorial`  AS  select `t`.`idTutorial` AS `idTutorial`,`t`.`nama_tutorial` AS `nama_tutorial`,`kt`.`kategori` AS `kategori`,`t`.`photo_hasil` AS `photo_hasil`,`u`.`username` AS `username` from ((`tutorial` `t` join `kategori_tutorial` `kt`) join `users` `u`) where ((`t`.`kat_id` = `kt`.`idKat`) and (`t`.`idUser` = `u`.`id`)) ;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `kategori_tutorial`
+-- Indeks untuk tabel `kategori_tutorial`
 --
 ALTER TABLE `kategori_tutorial`
   ADD PRIMARY KEY (`idKat`);
 
 --
--- Indexes for table `step`
+-- Indeks untuk tabel `step`
 --
 ALTER TABLE `step`
   ADD PRIMARY KEY (`idStep`),
   ADD KEY `tutorial_id` (`tutorial_id`);
 
 --
--- Indexes for table `tutorial`
+-- Indeks untuk tabel `tutorial`
 --
 ALTER TABLE `tutorial`
   ADD PRIMARY KEY (`idTutorial`),
@@ -145,38 +180,38 @@ ALTER TABLE `tutorial`
   ADD KEY `kat_id` (`kat_id`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `kategori_tutorial`
+-- AUTO_INCREMENT untuk tabel `kategori_tutorial`
 --
 ALTER TABLE `kategori_tutorial`
-  MODIFY `idKat` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idKat` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `step`
+-- AUTO_INCREMENT untuk tabel `step`
 --
 ALTER TABLE `step`
-  MODIFY `idStep` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idStep` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `tutorial`
+-- AUTO_INCREMENT untuk tabel `tutorial`
 --
 ALTER TABLE `tutorial`
-  MODIFY `idTutorial` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idTutorial` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

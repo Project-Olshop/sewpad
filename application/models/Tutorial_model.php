@@ -27,6 +27,44 @@ class Tutorial_model extends CI_Model {
 						'photo_hasil' => $this->upload->data('file_name'),
 						'idUser' => $idUser);
 		$this->db->insert('tutorial',$object);
+
+		return $this->db->insert_id();
+	}
+
+	public function updateTutorial($idUser)
+	{
+		$object = array('nama_tutorial' => $this->input->post('nama_tutorial'),
+						'kat_id' => $this->input->post('kat_id'),
+						'idUser' => $idUser);
+
+		$this->db->where('idTutorial', $this->input->post('idTutorial'));
+		$this->db->update('tutorial',$object);
+	}
+
+	public function updateTutorialWithImage($idUser)
+	{
+		$object = array('nama_tutorial' => $this->input->post('nama_tutorial'),
+						'kat_id' => $this->input->post('kat_id'),
+						'photo_hasil' => $this->upload->data('file_name'),
+						'idUser' => $idUser);
+
+		$this->db->where('idTutorial', $this->input->post('idTutorial'));
+		$this->db->update('tutorial',$object);
+	}
+
+	public function insertStep()
+	{
+		$object = array('tutorial_id' => $this->input->post('tutorial_id'),
+						'step' => $this->input->post('step'),
+						'photo' => $this->upload->data('file_name'));
+		$this->db->insert('step',$object);
+
+		return $this->db->insert_id();
+	}
+
+	public function deleteStep($idStep) {
+		$this->db->where('idStep', $idStep);
+		$this->db->delete('step');
 	}
 
 	public function getDataTutorial()
@@ -45,7 +83,7 @@ class Tutorial_model extends CI_Model {
 	public function getKatTutorial(){
         $query = $this->db->get('kategori_tutorial');
         if($query->num_rows()>0){	
-            return $query->result();
+            return $query->result_array();
         }
 	}
 	
@@ -73,9 +111,17 @@ class Tutorial_model extends CI_Model {
 	
 	public function getTutorial($id)
 	{
-		$this->db->where('id',$id);
+		$this->db->where('idTutorial',$id);
 		$query = $this->db->get('tutorial');
-		return $query->result();
+		return $query->result_array();
+	}
+
+	public function getStep($id)
+	{
+		$this->db->where('tutorial_id',$id);
+		$this->db->order_by('idStep', 'ASC');
+		$query = $this->db->get('step');
+		return $query->result_array();
 	}
 
 	public function updateById($id)
@@ -97,7 +143,7 @@ class Tutorial_model extends CI_Model {
 	public function list($limit, $start)
     {
         // $this->db->limit($limit, $start);
-        $query = $this->db->get('tutorial', $limit, $start);
+        $query = $this->db->get('v_tutorial', $limit, $start);
         return ($query->num_rows() > 0) ? $query->result() : false;
 	}
 	
@@ -108,16 +154,26 @@ class Tutorial_model extends CI_Model {
 
 	public function cari($keyword)
     {
-    	$keyword    =   $this->input->post('cari'); 
-        $query = $this->db->query("SELECT * FROM tutorial WHERE nama_tutorial LIKE '%$keyword%'");
-        $this->db->like('nama_tutorial', $keyword);
-        return $query->result();
+    	$query = $this->db->query("SELECT * FROM v_tutorial WHERE nama_tutorial LIKE '%" . $keyword . "%'");
+		
+		return $query->result_array();
 	}
 	
 	public function show($id){
 		$this->db->where('idTutorial',$id);
-		$query=$this->db->get('tutorial');
+		$query=$this->db->get('v_tutorial');
 		return $query->row();
+	}
+
+	public function _getAllTutorial() {
+		$query = $this->db->get('v_tutorial');
+
+		return $query->result_array();
+	}
+
+	public function _deleteTutorial($id) {
+		$this->db->where('idTutorial', $id);
+        $this->db->delete('tutorial');
 	}
 
 }

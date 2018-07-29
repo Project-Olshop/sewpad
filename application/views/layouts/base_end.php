@@ -26,10 +26,62 @@
   <!-- Superfish -->
   <script src="<?php echo base_url('assets/js/hoverIntent.js');?>"></script>
   <script src="<?php echo base_url('assets/js/superfish.js');?>"></script>
+
+      <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/datatable/datatables.min.js"></script>
+
+    <script>
+      $(document).ready(function() {
+        $('#example').DataTable();
+      })
+    </script>
  
   <!-- Main JS (Do not remove) -->
   <script src="<?php echo base_url('assets/js/main.js');?>"></script>
- 
+  <script>
+    $(document).ready(function() {
+      function readURL(input) {
+
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function(e) {
+            $('#blah').attr('src', e.target.result);
+          }
+
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      $("#imgInp").change(function() {
+        readURL(this);
+      });
+
+      $('#blah').on('click', (function() {
+        $('#imgInp').click();
+      }))
+
+      deleteStep = function(idStep, idTutorial) {
+        var confirmation = confirm('Apakah Anda yakin ingin menghapus step ini?');
+
+        if(confirmation) {
+          document.location.href = '<?php echo base_url(); ?>tutorial/deleteStep/' + idStep + '/' + idTutorial;
+        } else {
+          // No aksi
+        }
+      }
+
+      deleteMyTutorial = function(idTutorial) {
+        var confirmation = confirm('Apakah Anda yakin ingin menghapus tutorial ini?');
+
+        if(confirmation) {
+          document.location.href = '<?php echo base_url(); ?>tutorial/deleteTutorial/' + idTutorial;
+        } else {
+          // No aksi
+        }
+      }
+    })
+  </script>
   </body>
 
 </html>

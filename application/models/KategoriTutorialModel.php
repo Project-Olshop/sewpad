@@ -11,26 +11,34 @@ class KategoriTutorialModel extends CI_Model {
 	public function saveKategori()
     {
         $data = array(
-            'category'          => $this->input->post('category'),
-            'description'   => $this->input->post('description')
+            'kategori' => $this->input->post('kategori'),
+            'deskripsi'=> $this->input->post('deskripsi')
         );
         $this->db->insert('kategori_tutorial',$data);
     } 
 
-    public function updateKategori($id)
+    public function updateKategori()
     {
+        $id = $this->input->post('idKat');
+
         $data = array(
-            'category'          => $this->input->post('category'),
-            'description'   => $this->input->post('description')
+            'kategori' => $this->input->post('kategori'),
+            'deskripsi' => $this->input->post('deskripsi')
         );
-         $this->db->where('idCat', $id);
+         $this->db->where('idKat', $id);
         $this->db->update('kategori_tutorial', $data);
     }
 
 	public function deleteKategori($id)
     {
-        $this->db->where('idCat', $id);
+        $this->db->where('idKat', $id);
         $this->db->delete('kategori_tutorial');
+    }
+
+    public function _getAllKategori() {
+        $query = $this->db->get('kategori_tutorial');
+
+        return $query->result_array();
     }
 
 }

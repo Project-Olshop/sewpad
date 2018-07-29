@@ -28,7 +28,7 @@ class User_model extends CI_Model {
 	{
 		$password = $this->input->post('password');
         $pass = md5($password);
-        $company = 'member';
+        $company = 'Member';
         $photo = 'default.png';
 		$object = array('username' => $this->input->post('username'),
 						'email' => $this->input->post('email'), 

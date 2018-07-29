@@ -8,7 +8,7 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="#tutorial">Tutorial</a>
+                <a class="nav-link" href="<?php echo base_url(); ?>tutorial">Tutorial</a>
               </li>
               <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?php echo site_url('/Login');?>">Login</a></li>
               <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?php echo site_url('/Register');?>">Register</a></li>

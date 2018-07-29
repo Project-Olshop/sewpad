@@ -21,11 +21,15 @@
 		<tbody>
 			<?php foreach ($users_list as $data): ?>
        			<tr>
-          			<td><?php echo $data->id ?></td>
-          			<td><?php echo $data->username ?></td>
-          			<td><?php echo $data->email ?></td>
-                    <td><?php echo $data->company ?></td>
-                    <td><?php echo $data->photo ?></td>
+          			<td><?php echo $data->id; ?></td>
+          			<td><?php echo $data->username; ?></td>
+          			<td><?php echo $data->email; ?></td>
+                    <td><?php echo $data->company; ?></td>
+					<?php if($data->photo != '' || $data->photo != NULL) { ?>
+                    <td><img src="<?php echo base_url(); ?>assets/img/<?php echo $data->photo; ?>" alt="" width="100"></td>
+					<?php } else { ?>
+					<td>Tidak ada foto.</td>
+					<?php } ?>
        			</tr>
        		<?php endforeach ?>
 		</tbody>

@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?php isset($title) ?: $title = 'Sewpad |'; echo $title ?></title>
+    <title><?php echo (isset($title) ? 'Sewpad | ' . $title : 'Sewpad'); ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url('assets/vendor/bootstrap/css/bootstrap.min.css');?>" rel="stylesheet">

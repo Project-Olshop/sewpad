@@ -28,7 +28,7 @@
                             </ul>
                         </li>
 
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-suitcase"></i><span class="hide-menu">Forms<span class="label label-rouded label-primary pull-right">2</span></span></a>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-suitcase"></i><span class="hide-menu">Forms<span class="label label-rouded label-primary pull-right">1</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
                                     <a class="nav-link" href="<?php echo base_url();?>KategoriTutorial">
@@ -45,14 +45,14 @@
                             <ul aria-expanded="false" class="collapse">
 
                                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                                    <a class="nav-link" href="<?php echo base_url();?>laporan/pdf">
+                                    <a class="nav-link" href="<?php echo base_url();?>laporan/user">
                                         <i class="fa fa-wpforms"></i>
                                         <span class="nav-link-text">Laporan User</span>
                                     </a>
                                 </li>
                                 
                                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                                    <a class="nav-link" href="<?php echo base_url();?>LaporanTutorial">
+                                    <a class="nav-link" href="<?php echo base_url();?>laporan/tutorial">
                                         <i class="fa fa-wpforms"></i>
                                         <span class="nav-link-text">Laporan Tutorial</span>
                                     </a>

@@ -2,7 +2,22 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class DataUser extends CI_Controller {
+	public function __construct()
+	{
+		parent::__construct();
 
+		if($this->session->has_userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+
+            if($session_data['company'] != 'Admin') {
+                redirect('home');
+            }
+        } else {
+            redirect('Login');
+        }
+		
+	}
+	
 	public function index()
 	{
 		if($this->uri->segment(3))

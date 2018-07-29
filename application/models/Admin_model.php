@@ -25,4 +25,29 @@ class Admin_model extends CI_Model{
 
 	}
 
+	public function _getAllMember() {
+		$query = $this->db->where('company', 'member');
+		$query = $this->db->get('users');
+
+		return $query->result_array();
+	}
+
+	public function _getAllTutorial() {
+		$query = $this->db->get('tutorial');
+
+		return $query->result_array();
+	}
+
+	public function _getAllKategori() {
+		$query = $this->db->get('kategori_tutorial');
+
+		return $query->result_array();
+	}
+
+	public function _getCountKategoriOnTutorial($idKat) {
+		$query = $this->db->where('kat_id', $idKat);
+		$query = $this->db->get('tutorial');
+
+		return $query->result_array();
+	}
 }

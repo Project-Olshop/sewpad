@@ -22,6 +22,9 @@
     <script type="text/javascript" src="<?php echo base_url()?>assets/jsgrid/jsgrid.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url()?>assets/custom/grid.js"></script>
     <link href="<?php echo base_url();?>assets/css/customz.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/datatable/datatables.min.css">
+    <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/datatable/datatables.min.js"></script>
 
 </head>
 <body class="fix-header fix-sidebar">
@@ -35,7 +38,29 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-            <div id="jsGrid"></div>
+                <button type="button" class="btn btn-primary" onclick="openModalTambahKategori()">Tambah</button>
+                <table class="table table-striped" id="example">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Kategori</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 0; ?>
+                        <?php foreach($kategori as $item) { ?>
+                        <tr>
+                            <td><?php echo ++$i; ?></td>
+                            <td><?php echo $item['kategori']; ?></td>
+                            <td>
+                                <button class="btn btn-success" type="button" onclick="openModalEditKategori('<?php echo $item['idKat']; ?>', '<?php echo $item['kategori']; ?>', '<?php echo $item['deskripsi']; ?>')">Edit</button>
+                                <button class="btn btn-danger" type="button" onclick="deleteKategori('<?php echo $item['idKat']; ?>')">Hapus</button>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -46,6 +71,76 @@
         </div>
         <!-- End Page wrapper  -->
     </div>
+
+    <!-- Modal Tambah -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalTambahKategori" class="modal fade-in">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h4 class="modal-title">Add Data Kategori</h4>
+	            </div>
+	            <?php echo form_open('KategoriTutorial/create'); ?>
+		            <div class="modal-body">
+		            	<div class="container-fluid">
+		                    <div class="form-group">
+		                        <label class="col-lg-4 col-sm-4 control-label">Kategori</label>
+		                        <div class="col-lg-12">
+		                            <input type="text" class="form-control" name="kategori" required>
+		                        </div>
+		                    </div>
+                            <div class="form-group">
+		                        <label class="col-lg-4 col-sm-4 control-label">Deskripsi</label>
+		                        <div class="col-lg-12">
+                                    <textarea name="deskripsi" style="height: 150px;" class="form-control" required="required"></textarea>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		                <div class="modal-footer">
+		                    <button class="btn btn-info" type="submit"> Save&nbsp;</button>
+		                    <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
+		                </div>     
+	            	</div>
+	            <?php echo form_close();?>
+	        </div>
+	    </div>
+	</div>
+
+    <!-- Modal Edit -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditKategori" class="modal fade-in">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h4 class="modal-title">Edit Data Kategori</h4>
+	            </div>
+	            <?php echo form_open('KategoriTutorial/update'); ?>
+                    <input type="hidden" name="idKat" id="editIdKat" value="">
+		            <div class="modal-body">
+		            	<div class="container-fluid">
+		                    <div class="form-group">
+		                        <label class="col-lg-4 col-sm-4 control-label">Kategori</label>
+		                        <div class="col-lg-12">
+		                            <input type="text" class="form-control" id="editKategori" value="" name="kategori" required>
+		                        </div>
+		                    </div>
+                            <div class="form-group">
+		                        <label class="col-lg-4 col-sm-4 control-label">Deskripsi</label>
+		                        <div class="col-lg-12">
+                                    <textarea name="deskripsi" style="height: 150px;" class="form-control" required="required" id="editDeskripsi"></textarea>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		                <div class="modal-footer">
+		                    <button class="btn btn-info" type="submit"> Save&nbsp;</button>
+		                    <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
+		                </div>     
+	            	</div>
+	            <?php echo form_close();?>
+	        </div>
+	    </div>
+	</div>
+
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <!-- Bootstrap tether Core JavaScript -->
@@ -63,6 +158,33 @@
     <!-- scripit init-->
 
     <script src="<?php echo base_url();?>assets/awal/js/custom.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#example').DataTable();
+
+        openModalTambahKategori = function() {
+            $('#modalTambahKategori').modal('show');
+        }
+
+        openModalEditKategori = function(idKat, kategori, deskripsi) {
+            $('#modalEditKategori').modal('show');
+
+            $('#editIdKat').val(idKat);
+            $('#editKategori').val(kategori);
+            $('#editDeskripsi').val(deskripsi);
+        }
+
+        deleteKategori = function(idKat) {
+            var confirmation = confirm('Apakah Anda yakin ingin menghapus kategori ini?');
+
+            if(confirmation) {
+                document.location.href = '<?php echo base_url(); ?>KategoriTutorial/delete/' + idKat;
+            } else {
+                // No aksi
+            }
+        }
+      });
+    </script>
 
 </body>
 

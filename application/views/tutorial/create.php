@@ -19,51 +19,43 @@
           <?php }?>
 
 <section id="body">
-  <div class="container-fluid" style="padding-top: 20px; color: black">
- 
-    <div class="row">
-      
-      <!-- edit form column -->
-      <div class="col-md-5 personal-info">
-      <div style="border: 1px solid #c2c4c6; padding-left: 20px; padding-right: 20px; padding-top: 20px">
-        <h3>Tutorial</h3>
-        <hr>
-        <?php echo form_open_multipart('Tutorial/create'); ?>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Judul :</label>
-            <div class="col-lg-8">
-              <input class="form-control" id="nama_tutorial" name="nama_tutorial" type="text" placeholder="Judul">
-            </div>
+  <div class="container-fluid" style="padding: 0 0 150px 0; color: black">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <img id="blah" class="card-img-top" src="<?php echo base_url(); ?>assets/img/default-image.png" alt="">
+          <div class="card-body">
+            <?php echo form_open_multipart('Tutorial/create'); ?>
+              <div class="form-group">
+                <label><strong>Judul Tutorial</strong></label>
+                <input type="text" class="form-control" name="nama_tutorial">
+              </div>
+
+              <div class="form-group">
+                <label><strong>Kategori Tutorial</strong></label>
+                <select name="kat_id" class="form-control">
+                  <option value="" selected="selected">-- Pilih kategori</option>
+                  <?php foreach($kategori as $item) { ?>
+                  <option value="<?php echo $item['idKat']; ?>"><?php echo $item['kategori']; ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+
+              <div class="form-group" style="display: none;">
+                <label><strong>Foto Hasil</strong></label>
+                <input id="imgInp" type="file" class="form-control" name="photo_hasil" required="required">
+              </div>
+
+              <div class="form-group">
+                <label><strong>Step by step</strong></label>
+                <p>Simpan terlebih dahulu tutorial ini.</p>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Tambah</button>
+            </form>
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Kategori :</label>
-            <div class="col-lg-8">
-            <select class="form-control" name="kat_id">
-							<option  value="">Pilih Kategori</option>                   
-            	<?php foreach($kat_list as $row) { ?>
-            <option value="<?php echo $row->idKat;?>"><?php echo $row->kategori;?></option>
-            <?php } ?>
-						</select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Foto :</label>
-            <div class="col-lg-8">
-            <input class="form-control" id="photo_hasil" type="file" name="photo_hasil">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-md-8">
-              <input type="submit" class="btn btn-primary" value="Submit">
-            </div>
-          </div>
-        <?php echo form_close();?>
+        </div>
       </div>
-      <br><br>
     </div>
   </div>
-			</div>
-
-  <br>
-  <br>
   <?php $this->load->view('layouts/base_end') ?>

@@ -9,98 +9,141 @@ class Tutorial extends CI_Controller {
 		//Do your magic here
 		$this->load->helper('url','form');
         $this->load->model('Tutorial_model');
-        $this->load->library('pagination','form_validation');
-    }
+		$this->load->library('pagination','form_validation');
+		
+		if($this->session->has_userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+
+            if($session_data['company'] != 'Member') {
+                redirect('HomeAdmin');
+            }
+        } else {
+            redirect('Login');
+        }
+	}
+
+	public function edit($id)
+	{
+		$session_data=$this->session->userdata('logged_in');
+		$data['username']=$session_data['username'];
+        $data['company']=$session_data['company'];
+        $data['id']=$session_data['id'];
+		$idUser = $data ['id'];
+		
+		$this->load->helper('url','form');
+        $this->load->library('form_validation');
+		$this->load->model('Tutorial_model');
+		
+		$data['tutorial'] = $this->Tutorial_model->getTutorial($id);
+		$data["kategori"] = $this->Tutorial_model->getKatTutorial();
+		$data["step"] = $this->Tutorial_model->getStep($id);
+
+		if($data['tutorial'][0]['idUser'] != $idUser) {
+			redirect('home');
+		}
+		
+		$this->form_validation->set_rules('nama_tutorial', 'nama tutorial', 'trim|required');
+		$this->form_validation->set_rules('kat_id', 'kategori tutorial', 'trim|required');
+		
+		//$this->tgl_lahir=date('Y-m-d', strtotime($this->tgl_lahir));
+		
+		if ($this->form_validation->run()==FALSE){
+			$this->load->view('layouts/base_start_member',$data);
+			$this->load->view('tutorial/update');
+		}else{
+			if(isset($_FILES['photo_hasil']['name']) && $_FILES['photo_hasil']['name'] != '') {
+				$config['upload_path']='./assets/img/';
+				$config['allowed_types']='gif|jpg|png';
+				$config['max_size']=1000000000;
+				$config['max_width']=10240;
+				$config['max_height']=7680;
+				
+				$this->load->library('upload', $config);
+				if (! $this->upload->do_upload('photo_hasil')) {
+					$error = array('error' => $this->upload->display_errors());
+					$this->load->view('layouts/base_start_member',$data);
+					$this->load->view('tutorial/update',$error);
+					$this->load->view('layouts/base_end');
+				} else {
+					$this->Tutorial_model->updateTutorialWithImage($idUser);
+					echo "<script>alert('Successfully Updated'); </script>";
+					redirect('tutorial/edit/' . $id, 'refresh');
+				}
+			} else {
+				$this->Tutorial_model->updateTutorial($idUser);
+				echo "<script>alert('Successfully Updated'); </script>";
+				redirect('tutorial/edit/' . $id, 'refresh');
+			}
+		}
+	}
 		
 	public function index()
 	{
-		$session_data=$this->session->userdata('logged_in');
-        $data1['username']=$session_data['username'];
-        $data['company']=$session_data['company'];
-        $data['id']=$session_data['id'];
-        $data['title'] = 'Tutorial';
+		$config['base_url'] = base_url() . "member/index";
+        $config['total_rows'] = $this->db->get("v_tutorial")->num_rows();
+        $config['per_page'] = 10;
+        $config['num_links'] = 2;
+        $config['uri_segment'] = 3;
+        $config['first_link'] = 'First';
+        $config['last_link'] = 'Last';
+        $config['next_link'] = 'Next';
+        $config['prev_link'] = 'Prev';
+        
+        $this->pagination->initialize($config);
 
-        $this->load->model('Tutorial_model');
-        $id = $data['id'];
-        $data['username'] = $this->Tutorial_model->selectAll($id);
-    	$total = $this->Tutorial_model->getTotal();
-
-        if ($total > 0) {
-            $limit = 3;
-            $start = $this->uri->segment(3, 0);
-
-            $config = [
-                'base_url' => base_url() . 'tutorial/index',
-                'total_rows' => $total,
-                'per_page' => $limit,
-                'uri_segment' => 3,
-
-                // Bootstrap 3 Pagination
-                'first_link' => '&laquo;',
-                'last_link' => '&raquo;',
-                'next_link' => 'Next',
-                'prev_link' => 'Prev',
-                'full_tag_open' => '<ul class="pagination">',
-                'full_tag_close' => '</ul>',
-                'num_tag_open' => '<li>',
-                'num_tag_close' => '</li>',
-                'cur_tag_open' => '<li class="active"><span>',
-                'cur_tag_close' => '<span class="sr-only">(current)</span></span></li>',
-                'next_tag_open' => '<li>',
-                'next_tag_close' => '</li>',
-                'prev_tag_open' => '<li>',
-                'prev_tag_close' => '</li>',
-                'first_tag_open' => '<li>',
-                'first_tag_close' => '</li>',
-                'last_tag_open' => '<li>',
-                'last_tag_close' => '</li>',
-            ];
-            $this->pagination->initialize($config);
-
+        $this->load->model('m_home');
+        
+        if($this->session->userdata('logged_in')){
+            $session_data=$this->session->userdata('logged_in');
             $data = [
-                'results' => $this->Tutorial_model->list($limit, $start),
-                'links' => $this->pagination->create_links(),
-                'tutorial_list' => $this->Tutorial_model->getDataTutorial()
+                'results' => $this->m_home->getAll($config),
+                'title' => 'Home Member',
+                'username' => $session_data['username'],
+                'company' => $session_data['company'],
+                'id' => $session_data['id'],
             ];
-		}
-			$this->load->view('layouts/base_start_member',$data);
-			$this->load->view('tutorial/index',$data);
-			$this->load->view('layouts/base_end');
+            $this->load->view('layouts/base_start_member',$data);
+            $this->load->view('member/index' , $data);
+            $this->load->view('layouts/base_end',$data);
+        }
     } 
     
     public function show($idTutorial)
-		{
-	  $tutorial = $this->Tutorial_model->show($idTutorial);
-	  $data = [
-	    'data' => $tutorial
-	  ];
-	  $this->load->view('tutorial/show', $data);
-		}
+	{
+		$data['tutorial'] = $this->Tutorial_model->show($idTutorial);
+		$data['step'] = $this->Tutorial_model->getStep($idTutorial);
+		$this->load->view('tutorial/show', $data);
+	}
 
-		public function create()
+	public function create()
 	{
 		$session_data=$this->session->userdata('logged_in');
 		$data['username']=$session_data['username'];
         $data['company']=$session_data['company'];
         $data['id']=$session_data['id'];
         $idUser = $data ['id'];
+		
 		$this->load->helper('url','form');
         $this->load->library('form_validation');
 		$this->load->model('Tutorial_model');
-		$data["kat_list"] = $this->Tutorial_model->getKatTutorial();
-		$this->form_validation->set_rules('nama_tutorial', 'nama_tutorial', 'trim|required');
-		$this->form_validation->set_rules('kat_id', 'kat_id', 'trim|required');
+		
+		$data["kategori"] = $this->Tutorial_model->getKatTutorial();
+		
+		$this->form_validation->set_rules('nama_tutorial', 'nama tutorial', 'trim|required');
+		$this->form_validation->set_rules('kat_id', 'kategori tutorial', 'trim|required');
+		
 		//$this->tgl_lahir=date('Y-m-d', strtotime($this->tgl_lahir));
+		
 		if ($this->form_validation->run()==FALSE){
 			$this->load->view('layouts/base_start_member',$data);
 			$this->load->view('tutorial/create',$data);
 		}else{
-
 			$config['upload_path']='./assets/img/';
             $config['allowed_types']='gif|jpg|png';
             $config['max_size']=1000000000;
             $config['max_width']=10240;
             $config['max_height']=7680;
+			
 			$this->load->library('upload', $config);
 			if (! $this->upload->do_upload('photo_hasil')) {
 				$error = array('error' => $this->upload->display_errors());
@@ -108,12 +151,9 @@ class Tutorial extends CI_Controller {
 				$this->load->view('tutorial/create',$error);
 				$this->load->view('layouts/base_end');
 			} else {
-				$this->Tutorial_model->insertTutorial($idUser);
+				$id = $this->Tutorial_model->insertTutorial($idUser);
 				echo "<script>alert('Successfully Created'); </script>";
-				$data = [
-                  'tutorial_list' => $this->Tutorial_model->getDataTutorial()
-                ];
-				redirect('tutorial/createStep');
+				redirect('tutorial/edit/' . $id);
 			}
 		}
 	}
@@ -138,64 +178,56 @@ class Tutorial extends CI_Controller {
                 $this->form_validation->set_message('cekDbTutorial',"login failed");
                 return false;
             }
-        }
+		}
+		
+	public function deleteStep($idStep, $idTutorial) {
+		$this->Tutorial_model->deleteStep($idStep);
+		echo "<script>alert('Successfully Deleted'); </script>";
+		redirect('tutorial/edit/' . $idTutorial);
+	}
+
+	public function deleteTutorial($idTutorial) {
+		$this->Tutorial_model->_deleteTutorial($idTutorial);
+		echo "<script>alert('Successfully Deleted'); </script>";
+		redirect('MemberDetail');
+	}
+
 	public function createStep()
 	{
 		$session_data=$this->session->userdata('logged_in');
 		$data['username']=$session_data['username'];
         $data['company']=$session_data['company'];
 		$data['id']=$session_data['id'];
-		$data['tutorial_id']=$this->session->set_userdata('tutorial','idTutorial');
-        $tutorial_id = $data ['tutorial_id'];
+		
 		$this->load->helper('url','form');
         $this->load->library('form_validation');
 		$this->load->model('Tutorial_model');
-		$data["tutorial_list"] = $this->Tutorial_model->getTutorial();
-		$this->form_validation->set_rules('step', 'nama_tutorial', 'trim|required');
-		$this->form_validation->set_rules('foto_hasil', 'foto_tutorial', 'trim|required');
-		if ($this->form_validation->run()==FALSE){
+
+		$data['tutorial'] = $this->Tutorial_model->getTutorial($this->input->post('tutorial_id'));
+		
+		if($data['tutorial'][0]['idUser'] != $data['id']) {
+			redirect('home');
+		}
+		
+		$config['upload_path']='./assets/img/';
+		$config['allowed_types']='gif|jpg|png';
+		$config['max_size']=1000000000;
+		$config['max_width']=10240;
+		$config['max_height']=7680;
+
+		$this->load->library('upload', $config);
+		if (! $this->upload->do_upload('photo')) {
+			$error = array('error' => $this->upload->display_errors());
 			$this->load->view('layouts/base_start_member',$data);
-			$this->load->view('tutorial/create',$data);
-		}else{
-
-			$config['upload_path']='./assets/img/';
-			$config['allowed_types']='gif|jpg|png';
-			$config['max_size']=1000000000;
-			$config['max_width']=10240;
-			$config['max_height']=7680;
-
-			$this->load->library('upload', $config);
-			if (! $this->upload->do_upload('foto_hasil')) {
-				$error = array('error' => $this->upload->display_errors());
-				$this->load->view('layouts/base_start_member',$data);
-				$this->load->view('tutorial/create',$error);
-				$this->load->view('layouts/base_end');
-			} else {
-				$this->Tutorial_model->saveAll();
-				echo "<script>alert('Successfully Created'); </script>";
-				$data = [
-                  'tutorial_list' => $this->Tutorial_model->getDataTutorial()
-                ];
-				redirect('tutorial');
-			}
+			$this->load->view('tutorial/update',$error);
+			$this->load->view('layouts/base_end');
+		} else {
+			$this->Tutorial_model->insertStep();
+			echo "<script>alert('Successfully Created'); </script>";
+			redirect('tutorial/edit/' . $this->input->post('tutorial_id'));
 		}
-    }
-		public function update()
-		{
-					$this->form_validation->set_rules('nama_tutorial', 'nama_tutorial', 'trim|required');
-					$this->form_validation->set_rules('deskripsi', 'deskripsi', 'trim|required');
-			$this->form_validation->set_rules('foto_tutorial', 'foto_tutorial', 'trim|required');
-			$id = $this->uri->segment(3);
-			$data["tutorial"] = $this->Tutorial_model->getTutorial($id);
-			if ($this->form_validation->run()==FALSE){
-				$this->load->view('tutorial/update',$data);
-			}else{
-				$this->Tutorial_model->updateById($id);
-				echo "<script>alert('Successfully Updated'); </script>";
-				$data["tutorial_list"] = $this->Tutorial_model->getDataTutorial();
-				$this->load->view('tutorial/index',$data);
-			}
-		}
+	}
+	
 		public function delete()
 		{
 			echo "<script>alert('Successfully Deleted'); </script>";
