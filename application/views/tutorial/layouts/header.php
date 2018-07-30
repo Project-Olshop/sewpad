@@ -10,9 +10,10 @@
               <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="<?php echo base_url('tutorial') ?>">Tutorial</a>
               </li>
-              <li class="nav-item">
-              <a href="<?php echo site_url('member/show/'.$firstname.$lastname) ?>"></a>
-              </li>
+              <?php if($username){ ?>
+                  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?php echo base_url('MemberDetail') ?>"><span class="fa fa-user"></span>&nbsp;<?php echo $username;?></a></li>
+                  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?php echo base_url('Login/Logout');?>">Logout</a></li>
+              <?php }?>
               <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="<?php echo site_url('tutorial/create') ?>"><span class="glyphicon glyphicon-pencil"></span>Tulis Tutorial</a>
               </li>           
