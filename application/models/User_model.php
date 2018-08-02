@@ -23,7 +23,17 @@ class User_model extends CI_Model {
         }
 	}
 
+	public function getTutorialHome(){
+		return $this->db->query("select `t`.`idTutorial` AS `idTutorial`,`t`.`nama_tutorial` AS `nama_tutorial`,`kt`.`kategori` AS `kategori`,`t`.`photo_hasil` AS `photo_hasil`,`u`.`username` AS `username` from ((`tutorial` `t` join `kategori_tutorial` `kt`) join `users` `u`) where ((`t`.`kat_id` = `kt`.`idKat`) and (`t`.`idUser` = `u`.`id`))")->num_rows();
+	}
 
+	public function getTutorialMember($username){
+		$this->db->select("`t`.`idTutorial` AS `idTutorial`,`t`.`nama_tutorial` AS `nama_tutorial`,`kt`.`kategori` AS `kategori`,`t`.`photo_hasil` AS `photo_hasil`,`u`.`username` AS `username`");
+        $this->db->where("((`t`.`kat_id` = `kt`.`idKat`) and (`t`.`idUser` = `u`.`id`)) and `u`.`username` = '$username'");
+        $this->db->from("((`tutorial` `t` join `kategori_tutorial` `kt`) join `users` `u`)"); 
+		$query = $this->db->get();
+		return $query;
+	}
 	public function insertUser()
 	{
 		$password = $this->input->post('password');

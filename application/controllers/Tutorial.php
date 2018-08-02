@@ -79,8 +79,10 @@ class Tutorial extends CI_Controller {
 		
 	public function index()
 	{
+		$this->load->model('User_model');
+        $total=$this->User_model->getTutorialHome();
 		$config['base_url'] = base_url() . "member/index";
-        $config['total_rows'] = $this->db->get("v_tutorial")->num_rows();
+        $config['total_rows'] = $total;
         $config['per_page'] = 10;
         $config['num_links'] = 2;
         $config['uri_segment'] = 3;
@@ -106,14 +108,31 @@ class Tutorial extends CI_Controller {
             $this->load->view('member/index' , $data);
             $this->load->view('layouts/base_end',$data);
         }
-    } 
+    }  
     
     public function show($idTutorial)
 	{
+      	        $session_data=$this->session->userdata('logged_in');
+		$data['username']=$session_data['username'];
+                $data['company']=$session_data['company'];
+                $data['id']=$session_data['id'];
 		$data['tutorial'] = $this->Tutorial_model->show($idTutorial);
 		$data['step'] = $this->Tutorial_model->getStep($idTutorial);
 		$this->load->view('tutorial/show', $data);
 	}
+
+        public function download($idTutorial) {
+                $this->load->library('pdf');
+               
+                $session_data=$this->session->userdata('logged_in');
+		$data['username']=$session_data['username'];
+                $data['company']=$session_data['company'];
+                $data['id']=$session_data['id'];
+		$data['tutorial'] = $this->Tutorial_model->show($idTutorial);
+		$data['step'] = $this->Tutorial_model->getStep($idTutorial);
+                $this->pdf->setPaper('A4', 'portrait');
+                $this->pdf->load_view('tutorial/download', $data);
+        }
 
 	public function create()
 	{

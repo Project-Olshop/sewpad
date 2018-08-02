@@ -24,8 +24,10 @@ class Member extends CI_Controller {
 
 	public function index()
 	{
+        $this->load->model('User_model');
+        $total=$this->User_model->getTutorialHome();
         $config['base_url'] = base_url() . "member/index";
-        $config['total_rows'] = $this->db->get("v_tutorial")->num_rows();
+        $config['total_rows'] = $total;
         $config['per_page'] = 10;
         $config['num_links'] = 2;
         $config['uri_segment'] = 3;

@@ -56,9 +56,10 @@ class Home extends CI_Controller {
         // }
 		// $this->load->view('layouts/base_start', $data);
         // $this->load->view('home', $data);
-        
+        $this->load->model('User_model');
+        $total=$this->User_model->getTutorialHome();
         $config['base_url'] = base_url() . "home/index";
-        $config['total_rows'] = $this->db->get("v_tutorial")->num_rows();
+        $config['total_rows'] = $total;
         $config['per_page'] = 3;
         $config['num_links'] = 2;
         $config['uri_segment'] = 3;
@@ -72,7 +73,7 @@ class Home extends CI_Controller {
         $this->load->model('m_home');
         $data['results'] = $this->m_home->getAll($config);
         $this->load->view('home', $data);
-	}
+        }
 
 	public function allTutorial(){
 		$this->load->model('Tutorial_model');

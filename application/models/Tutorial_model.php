@@ -143,7 +143,12 @@ class Tutorial_model extends CI_Model {
 	public function list($limit, $start)
     {
         // $this->db->limit($limit, $start);
-        $query = $this->db->get('v_tutorial', $limit, $start);
+        $this->db->select("`t`.`idTutorial` AS `idTutorial`,`t`.`nama_tutorial` AS `nama_tutorial`,`kt`.`kategori` AS `kategori`,`t`.`photo_hasil` AS `photo_hasil`,`u`.`username` AS `username`");
+        $this->db->where("((`t`.`kat_id` = `kt`.`idKat`) and (`t`.`idUser` = `u`.`id`))");
+        $this->db->from("((`tutorial` `t` join `kategori_tutorial` `kt`) join `users` `u`)");
+        $this->db->limit($limit, $start); 
+        $query = $this->db->get();
+
         return ($query->num_rows() > 0) ? $query->result() : false;
 	}
 	
@@ -154,19 +159,22 @@ class Tutorial_model extends CI_Model {
 
 	public function cari($keyword)
     {
-    	$query = $this->db->query("SELECT * FROM v_tutorial WHERE nama_tutorial LIKE '%" . $keyword . "%'");
+    	$query = $this->db->query("select `t`.`idTutorial` AS `idTutorial`,`t`.`nama_tutorial` AS `nama_tutorial`,`kt`.`kategori` AS `kategori`,`t`.`photo_hasil` AS `photo_hasil`,`u`.`username` AS `username` from ((`tutorial` `t` join `kategori_tutorial` `kt`) join `users` `u`) where ((`t`.`kat_id` = `kt`.`idKat`) and (`t`.`idUser` = `u`.`id`)) AND nama_tutorial LIKE '%" . $keyword . "%'");
 		
 		return $query->result_array();
 	}
 	
 	public function show($id){
-		$this->db->where('idTutorial',$id);
-		$query=$this->db->get('v_tutorial');
+		$this->db->select("`t`.`idTutorial` AS `idTutorial`,`t`.`nama_tutorial` AS `nama_tutorial`,`kt`.`kategori` AS `kategori`,`t`.`photo_hasil` AS `photo_hasil`,`u`.`username` AS `username`");
+                $this->db->where("((`t`.`kat_id` = `kt`.`idKat`) and (`t`.`idUser` = `u`.`id`)) and idTutorial = $id");
+                $this->db->from("((`tutorial` `t` join `kategori_tutorial` `kt`) join `users` `u`)");
+                $query = $this->db->get();
+
 		return $query->row();
 	}
 
 	public function _getAllTutorial() {
-		$query = $this->db->get('v_tutorial');
+		$query = $this->db->query('select `t`.`idTutorial` AS `idTutorial`,`t`.`nama_tutorial` AS `nama_tutorial`,`kt`.`kategori` AS `kategori`,`t`.`photo_hasil` AS `photo_hasil`,`u`.`username` AS `username` from ((`tutorial` `t` join `kategori_tutorial` `kt`) join `users` `u`) where ((`t`.`kat_id` = `kt`.`idKat`) and (`t`.`idUser` = `u`.`id`))');
 
 		return $query->result_array();
 	}

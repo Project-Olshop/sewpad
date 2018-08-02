@@ -29,9 +29,9 @@ class MemberDetail extends CI_Controller {
         $id = $data['id'];
         $data['username'] = $this->User_model->selectAll($id);
 
-        $query = $this->db->where('username', $data1['username']);
-        $query = $this->db->get('v_tutorial');
-        
+        $username = $data1['username'];
+        $query=$this->User_model->getTutorialMember($username);
+
         $data['tutorials'] = $query->result_array();
 
         // $this->load->model('EventScheduleModel');

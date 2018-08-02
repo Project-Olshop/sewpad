@@ -1,4 +1,4 @@
-<?php $this->load->view('tutorial/layouts/base_start') ?>
+<?php $this->load->view('layouts/base_start_member') ?>
 <div class="container-fluid" style="background-color:  #f89751; padding-top: 100px;padding-bottom: 20px">
           <br><br>
           <div class="row">
@@ -31,6 +31,8 @@
           </div>
           <div class="card-footer"><?php echo "Ditulis oleh " . $tutorial->username; ?></div>
         </div>
+<br/>
+<a href="<?php echo base_url(); ?>tutorial/download/<?php echo $tutorial->idTutorial; ?>" class="btn btn-success btn-sm">Download</a>
       </div>
     </div>
   </div>
