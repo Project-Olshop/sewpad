@@ -75,18 +75,18 @@
         <?php foreach($results as $row) { ?>
           <div class="col-lg-4 col-md-4">
             <div class="fh5co-blog animate-box">
-            <a href="<?php echo base_url('show/showTutorial/'.$row->idTutorial) ?>">
+            <a href="<?php echo base_url('tutorial/show/'.$row->idTutorial) ?>">
               <img src="<?php echo base_url('assets/img/'.$row->photo_hasil)?>" width="100">
             </a>
               <div class="blog-text">
                 <div class="prod-title">
-                  <h3><a href="<?php echo base_url('show/showTutorial/'.$row->idTutorial);?>">
+                  <h3><a href="<?php echo base_url('tutorial/show/'.$row->idTutorial);?>">
                   <?php echo $row->nama_tutorial; ?></a></h3>
                   <span class="comment">
                     <i class="icon-user"></i>
                     &nbsp;<?php echo $row->username; ?>
                   </span>
-                  <a href="<?php echo base_url('show/showTutorial/'.$row->idTutorial);?>" class="btn btn-primary">Read More</a>
+                  <a href="<?php echo base_url('tutorial/show/'.$row->idTutorial);?>" class="btn btn-primary">Read More</a>
                 </div>
               </div> 
             </div>

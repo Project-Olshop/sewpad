@@ -183,7 +183,19 @@ class Tutorial_model extends CI_Model {
 		$this->db->where('idTutorial', $id);
         $this->db->delete('tutorial');
 	}
+        
+        public function getKomentar($id) {
+		$query = $this->db->where('idTutorial', $id);
+		$query = $this->db->get('komentar');
 
+		return $query->result_array();
+	}
+
+	public function postComment($data) {
+		$this->db->insert('komentar', $data);
+
+		return $this->db->insert_id();
+	}
 }
 
 /* End of file Pegawai_model.php */

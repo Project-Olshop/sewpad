@@ -78,10 +78,10 @@
 				<td><?php echo $data->username ?></td>
 				<td><?php echo $data->email ?></td>
 				<td><?php echo $data->company ?></td>
-				<td><img src="<?php echo base_url()?>assets/img/upload/<?php echo $data->photo ?>" width="100"></td>
+				<td><img src="<?php echo base_url()?>assets/img/<?php echo $data->photo ?>" width="100"></td>
 
 				<td>
-					<button type="button" class="btn btn-info" onclick="openModalUpdate('<?php echo $data->username; ?>','<?php echo $data->email; ?>', '<?php echo $data->company; ?>')">
+					<button type="button" class="btn btn-info" onclick="openModalUpdate('<?php echo $data->id; ?>', '<?php echo $data->username; ?>','<?php echo $data->email; ?>', '<?php echo $data->company; ?>')">
 						<span class="fa fa-edit">&nbsp;Update </span></button>
 					<a href="<?php echo site_url()?>/DataUser/delete/<?php echo $data->id; ?>" class="btn btn-danger" 
 						onclick="return confirm('Are you sure to delete this data permanently?'); ">
@@ -162,7 +162,7 @@
 		                        <label class="col-lg-4 col-sm-4 control-label">Username</label>
 		                        <div class="col-lg-12">
 									<input type="hidden" id="id" name="id">
-		                            <input type="text" class="form-control" id="editUsername" name="username" placeholder="Masukkan username" required readonly>
+		                            <input type="text" class="form-control" id="editUsername" name="username" placeholder="Masukkan username" required>
 		                        </div>
 		                    </div>
 		                    <div class="form-group">
@@ -219,9 +219,10 @@
       $(document).ready(function() {
         $('#example').DataTable();
 
-		openModalUpdate = function(username, email, company) {
+		openModalUpdate = function(id, username, email, company) {
 			$('#edit-data').modal('show');
-			$('#editUsername').val(username);
+$('#id').val(id);			
+$('#editUsername').val(username);
 			$('#editEmail').val(email);
 
 			if(company == 'Admin' || company == 'admin') {

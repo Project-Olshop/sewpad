@@ -29,6 +29,7 @@
                     $session_array = array(
                         'id'=>$key->id,
                         'username'=>$key->username,
+                        'email' => $key->email,
                         'company'=>$key->company
                     );
                     $this->session->set_userdata('logged_in',$session_array);

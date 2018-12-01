@@ -41,7 +41,7 @@ protected function ci()
  * @param   array   $data The view data
  * @return  void
  */
-public function load_view($view, $data = array())
+public function load_view($view, $data = array(), $filename = 'download.pdf')
 {
     $dompdf = new Dompdf();
     $html = $this->ci()->load->view($view, $data, TRUE);
@@ -57,6 +57,6 @@ public function load_view($view, $data = array())
     $time = time();
 
     // Output the generated PDF to Browser
-    $dompdf->stream($time);
+    $dompdf->stream($filename, ['Attachment' => 0],$time);
 }
 }

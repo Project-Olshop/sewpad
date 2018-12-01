@@ -10,7 +10,7 @@ class User_model extends CI_Model {
 	}
 	
 	public function login($username,$password){
-    	$this->db->select('id,username,password,company');
+    	$this->db->select('id,username,email,password,company');
     	$this->db->from('users');
     	$this->db->where('username',$username);
 		$this->db->where('password',MD5($password));

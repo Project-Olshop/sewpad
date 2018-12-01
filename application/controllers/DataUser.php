@@ -91,7 +91,7 @@ class DataUser extends CI_Controller {
 		}else{
 
 			$config['upload_path']='./assets/img/upload/';
-			$config['allowed_types']='gif|jpg|png';
+			$config['allowed_types']='gif|jpg|jpeg|png';
 			$config['max_size']=1000000000;
 			$config['max_width']=10240;
 			$config['max_height']=7680;
@@ -119,22 +119,28 @@ class DataUser extends CI_Controller {
 		
 		if ($this->form_validation->run()==FALSE){
 		}else{
-			$config['upload_path']='./assets/img/upload';
-			$config['allowed_types']='gif| |png';
+			$config['upload_path']='./assets/img/';
+			$config['allowed_types']='gif|jpg|jpeg|png';
 			$config['max_size']=1000000000;
 			$config['max_width']=10240;
 			$config['max_height']=7680;
 
 			$this->load->library('upload', $config);
-			if (! $this->upload->do_upload('photo')) {
-				$this->DataUserModel->updateno($id);
+                        
+                        if ( ! $this->upload->do_upload('photo'))
+                {
+                        $error = array('error' => $this->upload->display_errors());
+
+                        var_dump($error);
+                }
+                else
+                {
+                        $this->DataUserModel->updateno($id);
 				echo "<script>alert('Successfully Updated'); </script>";
 				redirect('DataUser','refresh');
-			}else{
-				$this->DataUserModel->updateUser($id);
-				echo "<script>alert('Successfully Updated'); </script>";
-				redirect('DataUser','refresh');
-			}
+                }
+
+			
 		}
     }
 

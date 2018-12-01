@@ -12,7 +12,11 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
+                <?php if($username){ ?>
+                <a class="nav-link js-scroll-trigger" href="<?php echo base_url('tutorial') ?>">Tutorial</a>
+              <?php }else{?>
                 <a class="nav-link js-scroll-trigger" href="<?php echo base_url('show') ?>">Tutorial</a>
+              <?php } ?>
               </li>
               <?php if($username){ ?>
                   <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?php echo base_url('MemberDetail') ?>"><span class="fa fa-user"></span>&nbsp;<?php echo $username;?></a></li>

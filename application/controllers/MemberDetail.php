@@ -55,7 +55,7 @@ class MemberDetail extends CI_Controller {
         $id = $data['id'];
         
             $config['upload_path']='./assets/img/';
-            $config['allowed_types']='gif|jpg|png';
+            $config['allowed_types']='gif|jpg|jpeg|png';
             $config['max_size']=1000000000;
             $config['max_width']=10240;
             $config['max_height']=7680;

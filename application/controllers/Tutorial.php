@@ -10,8 +10,10 @@ class Tutorial extends CI_Controller {
 		$this->load->helper('url','form');
         $this->load->model('Tutorial_model');
 		$this->load->library('pagination','form_validation');
-		
-		if($this->session->has_userdata('logged_in')) {
+	}
+
+        public function cek() {
+                if($this->session->has_userdata('logged_in')) {
             $session_data = $this->session->userdata('logged_in');
 
             if($session_data['company'] != 'Member') {
@@ -20,10 +22,11 @@ class Tutorial extends CI_Controller {
         } else {
             redirect('Login');
         }
-	}
+        }
 
 	public function edit($id)
 	{
+                $this->cek();
 		$session_data=$this->session->userdata('logged_in');
 		$data['username']=$session_data['username'];
         $data['company']=$session_data['company'];
@@ -53,7 +56,7 @@ class Tutorial extends CI_Controller {
 		}else{
 			if(isset($_FILES['photo_hasil']['name']) && $_FILES['photo_hasil']['name'] != '') {
 				$config['upload_path']='./assets/img/';
-				$config['allowed_types']='gif|jpg|png';
+				$config['allowed_types']='gif|jpg|jpeg|png';
 				$config['max_size']=1000000000;
 				$config['max_width']=10240;
 				$config['max_height']=7680;
@@ -118,6 +121,8 @@ class Tutorial extends CI_Controller {
                 $data['id']=$session_data['id'];
 		$data['tutorial'] = $this->Tutorial_model->show($idTutorial);
 		$data['step'] = $this->Tutorial_model->getStep($idTutorial);
+                $data['komentar'] = $this->Tutorial_model->getKomentar($idTutorial);
+
 		$this->load->view('tutorial/show', $data);
 	}
 
@@ -136,6 +141,7 @@ class Tutorial extends CI_Controller {
 
 	public function create()
 	{
+                $this->cek();
 		$session_data=$this->session->userdata('logged_in');
 		$data['username']=$session_data['username'];
         $data['company']=$session_data['company'];
@@ -158,7 +164,7 @@ class Tutorial extends CI_Controller {
 			$this->load->view('tutorial/create',$data);
 		}else{
 			$config['upload_path']='./assets/img/';
-            $config['allowed_types']='gif|jpg|png';
+            $config['allowed_types']='gif|jpg|jpeg|png';
             $config['max_size']=1000000000;
             $config['max_width']=10240;
             $config['max_height']=7680;
@@ -179,6 +185,7 @@ class Tutorial extends CI_Controller {
 
 	public function cekDbTutorial()
         {
+            $this->cek();
             $this->load->model('Tutorial_model');
             $idTutorial = $this->input->post('use'); 
             $result = $this->Tutorial_model->tutorial($nama_tutorial,$kat_id,$photo_hasil);
@@ -200,12 +207,14 @@ class Tutorial extends CI_Controller {
 		}
 		
 	public function deleteStep($idStep, $idTutorial) {
+                $this->cek();
 		$this->Tutorial_model->deleteStep($idStep);
 		echo "<script>alert('Successfully Deleted'); </script>";
 		redirect('tutorial/edit/' . $idTutorial);
 	}
 
 	public function deleteTutorial($idTutorial) {
+                $this->cek();
 		$this->Tutorial_model->_deleteTutorial($idTutorial);
 		echo "<script>alert('Successfully Deleted'); </script>";
 		redirect('MemberDetail');
@@ -213,6 +222,8 @@ class Tutorial extends CI_Controller {
 
 	public function createStep()
 	{
+                $this->cek();
+
 		$session_data=$this->session->userdata('logged_in');
 		$data['username']=$session_data['username'];
         $data['company']=$session_data['company'];
@@ -229,7 +240,7 @@ class Tutorial extends CI_Controller {
 		}
 		
 		$config['upload_path']='./assets/img/';
-		$config['allowed_types']='gif|jpg|png';
+		$config['allowed_types']='gif|jpg|jpeg|png';
 		$config['max_size']=1000000000;
 		$config['max_width']=10240;
 		$config['max_height']=7680;
@@ -249,6 +260,7 @@ class Tutorial extends CI_Controller {
 	
 		public function delete()
 		{
+                        $this->cek();
 			echo "<script>alert('Successfully Deleted'); </script>";
 			$id = $this->uri->segment(3);
 			$this->Tutorial_model->deleteById($id);
@@ -258,9 +270,40 @@ class Tutorial extends CI_Controller {
 		}
 
 		public function search() {
+                        $this->cek();
 			$keyword    =   $this->input->post('cari'); //tergantung namenya apa
 			$data['results']    =   $this->Tutorial_model->cari($keyword);
 			$this->load->view('tutorial/index',$data);
+	}
+
+       public function post_comment() {
+                if($this->session->has_userdata('logged_in')) {
+                  $session_data = $this->session->userdata('logged_in');
+
+                  $data = array(
+			'idKomentar' => '',
+			'idTutorial' => $this->input->post('idTutorial'),
+			'namaPengunjung' => $session_data['username'],
+			'emailPengunjung' => $session_data['email'],
+			'isiKomentar' => $this->input->post('isiKomentar')
+		  );
+                } else {
+	 	  $data = array(
+			'idKomentar' => '',
+			'idTutorial' => $this->input->post('idTutorial'),
+			'namaPengunjung' => $this->input->post('namaPengunjung'),
+			'emailPengunjung' => $this->input->post('emailPengunjung'),
+			'isiKomentar' => $this->input->post('isiKomentar')
+		  );
+                }
+
+		$idKomentar = $this->Tutorial_model->postComment($data);
+
+		if($idKomentar) {
+			echo "<script>alert('Komentar berhasil diposting.');document.location.href = '" . base_url() . "tutorial/show/" . $this->input->post('idTutorial') . "';</script>";
+		} else {
+			echo "<script>alert('Komentar gagal diposting.');document.location.href = '" . base_url() . "tutorial/show/" . $this->input->post('idTutorial') . "';</script>";
+		}
 	}
 
 }

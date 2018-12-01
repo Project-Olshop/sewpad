@@ -79,14 +79,14 @@ class DataUserModel extends CI_Model {
 
     public function updateno($id)
     {
+        $foto = $this->upload->data();
         $data = array(
             'username'  => $this->input->post('username'),
             'email'     => $this->input->post('email'),
             'company'     => $this->input->post('company'),
-            'photo'      => $this->upload->data('file_name')
+            'photo'      => $foto['file_name']
         );
-         $this->db->where('id', $id);
-        $this->db->update('users', $data);
+        $this->db->update('users', $data, array('id' => $id));
     }
 
     public function deleteUser($id)

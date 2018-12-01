@@ -10,7 +10,7 @@
                         <li class="nav-label">Home</li>
                         <li> <a href="<?php echo base_url();?>HomeAdmin" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="nav-label">Features</li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-suitcase"></i><span class="hide-menu">Data Options<span class="label label-rouded label-danger pull-right">2</span></span></a>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-suitcase"></i><span class="hide-menu">Data Options<span class="label label-rouded label-danger pull-right">3</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
                                     <a class="nav-link" href="<?php echo base_url();?>DataUser">
@@ -23,6 +23,13 @@
                                     <a class="nav-link" href="<?php echo base_url();?>DataTutorial">
                                         <i class="fa fa-fw fa-table"></i>
                                         <span class="nav-link-text">Data Tutorial</span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                                    <a class="nav-link" href="<?php echo base_url();?>DataKomentar">
+                                        <i class="fa fa-fw fa-table"></i>
+                                        <span class="nav-link-text">Data Komentar</span>
                                     </a>
                                 </li>
                             </ul>
